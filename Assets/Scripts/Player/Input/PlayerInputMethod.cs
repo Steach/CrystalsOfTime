@@ -16,6 +16,7 @@ namespace CrystalOfTime.Systems.InputSystem
 
         private PlayerController _playerController;
         private bool _isGrounded = false;
+        private bool _isDead = false;
 
         public Vector2 MoveInput { get; private set; }
 
@@ -27,6 +28,7 @@ namespace CrystalOfTime.Systems.InputSystem
             _playerController.Movement.Move.performed += PlayerMove;
             _playerController.Movement.Move.canceled += PlayerStopMove;
             _playerController.Movement.Jump.performed += Jump;
+            PlayerColliding.PlayerDeath += CheckPlayerDeath;
         }
 
         public void PlayerMove(InputAction.CallbackContext context)
@@ -47,9 +49,22 @@ namespace CrystalOfTime.Systems.InputSystem
 
         private void Update()
         {
-            CheckPlayerIsGrounded();
-            Vector3 movement = new Vector3(MoveInput.x, 0, 0);
-            transform.position += movement * _moveSpeed * Time.deltaTime;
+            if (!_isDead)
+            {
+                CheckPlayerIsGrounded();
+                Vector3 movement = new Vector3(MoveInput.x, 0, 0);
+                transform.position += movement * _moveSpeed * Time.deltaTime;
+            }
+            else if (_isDead)
+            {
+                Debug.Log("PLAYER IS DEAD GAME OVER");
+
+                _playerController.Movement.Move.performed -= PlayerMove;
+                _playerController.Movement.Move.canceled -= PlayerStopMove;
+                _playerController.Movement.Jump.performed -= Jump;
+                PlayerColliding.PlayerDeath -= CheckPlayerDeath;
+                _playerController.Disable();
+            }
         }
 
         private void CheckPlayerIsGrounded()
@@ -58,6 +73,11 @@ namespace CrystalOfTime.Systems.InputSystem
             Vector2 direction = Vector3.down;
 
             _isGrounded = Physics2D.Raycast(origin, direction, _rayDistance, _layerMask);
+        }
+
+        private void CheckPlayerDeath(bool isDead)
+        {
+            _isDead = isDead;
         }
     }
 }
