@@ -25,22 +25,27 @@ namespace CrystalOfTime.Systems.Managers
         private void OnEnable()
         {
             _playerColliding = GetPlayerColliding();
-            PlayerColliding.GrabItem += UpdateUI;
+
+            PlayerColliding.GrabCoin += UpdateUICoin;
+            PlayerColliding.GrabCrystal += UpdateUICrystal;
+            PlayerColliding.GrabHeath += UpdateUIHealth;
+
             _playerColliding.PlayerDamaged += UpdateHpSlider;
         }
 
         private void OnDisable()
         {
-            PlayerColliding.GrabItem -= UpdateUI;
+            PlayerColliding.GrabCoin -= UpdateUICoin;
+            PlayerColliding.GrabCrystal -= UpdateUICrystal;
+            PlayerColliding.GrabHeath -= UpdateUIHealth;
             _playerColliding.PlayerDamaged -= UpdateHpSlider;
         }
 
-        private void UpdateUI(int coin, int crystal, float potion)
-        {
-            _coinCount.text = coin.ToString();
-            _crystalCount.text = crystal.ToString();
-            _potionCount.text = potion.ToString();
-        }
+        private void UpdateUICoin(int coin) => _coinCount.text = coin.ToString();
+
+        private void UpdateUICrystal(int crystal) => _crystalCount.text = crystal.ToString();
+
+        private void UpdateUIHealth(int potion) => _potionCount.text = potion.ToString();
 
         private PlayerColliding GetPlayerColliding()
         {

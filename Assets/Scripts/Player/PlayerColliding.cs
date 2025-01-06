@@ -4,12 +4,18 @@ public class PlayerColliding : MonoBehaviour
 {
     public int Crystals { get; private set; }
     public int Coins { get; private set; }
-    public float Potions { get; private set; }
+    public int Potions { get; private set; }
 
     public float PlayerHP { get; private set; }
 
-    public delegate void TriggerEvenyHandler(int coin, int crystal, float potion);
-    public static event TriggerEvenyHandler GrabItem;
+    public delegate void GrabCoinTriggerEventHandler(int coin);
+    public static event GrabCoinTriggerEventHandler GrabCoin;
+
+    public delegate void GrabCrystalTriggerEventHandler(int crystal);
+    public static event GrabCrystalTriggerEventHandler GrabCrystal;
+
+    public delegate void GrabHealthTriggerEventHandler(int health);
+    public static event GrabHealthTriggerEventHandler GrabHeath;
 
     public delegate void PlayerDamagedEventHandler(float currentHP);
     public event PlayerDamagedEventHandler PlayerDamaged;
@@ -25,7 +31,16 @@ public class PlayerColliding : MonoBehaviour
         Crystals = 0;
         Coins = 0;
         Potions = 0;
-        GrabItem?.Invoke(Coins, Crystals, Potions);
+        GrabCoin?.Invoke(Coins);
+        GrabCrystal?.Invoke(Crystals);
+        GrabHeath?.Invoke(Potions);
+    }
+
+    private void Start()
+    {
+        GrabCoin?.Invoke(Coins);
+        GrabCrystal?.Invoke(Crystals);
+        GrabHeath?.Invoke(Potions);
     }
 
     private void Update()
@@ -39,19 +54,19 @@ public class PlayerColliding : MonoBehaviour
         if (collision.tag == "Crystal")
         {
             Crystals++;
-            GrabItem?.Invoke(Coins, Crystals, Potions);
+            GrabCrystal?.Invoke(Crystals);
             Destroy(collision.gameObject);
         }
         else if (collision.tag == "Coin")
         {
             Coins++;
-            GrabItem?.Invoke(Coins, Crystals, Potions);
+            GrabCoin?.Invoke(Coins);
             Destroy(collision.gameObject);
         }
         else if (collision.tag == "Potion")
         {
             Potions++;
-            GrabItem?.Invoke(Coins, Crystals, Potions);
+            GrabHeath?.Invoke(Potions);
             Destroy(collision.gameObject);
         }
         else if (collision.tag == "Enemy")

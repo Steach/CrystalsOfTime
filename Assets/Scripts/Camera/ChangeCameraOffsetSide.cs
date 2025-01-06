@@ -22,7 +22,6 @@ namespace CrystalOfTime.Systems.Camera
         private void Awake()
         {
             _cmTransposer = _vcamera.GetCinemachineComponent<CinemachineTransposer>();
-
         }
 
         private void Update()
@@ -38,14 +37,6 @@ namespace CrystalOfTime.Systems.Camera
             Vector3 currentOffset = _cmTransposer.m_FollowOffset;
             Vector3 targetOffset = new Vector3(targetOffsetX, currentOffset.y, currentOffset.z);
             _cmTransposer.m_FollowOffset = Vector3.SmoothDamp(currentOffset, targetOffset, ref _velocity, _smoothTime);
-
-
-            /*if (_playerInputMethod.MoveInput.x == 0)
-                _cmTransposer.m_FollowOffset.x = _defaultOffsetX;
-            else if (_playerInputMethod.MoveInput.x > 0)
-                _cmTransposer.m_FollowOffset.x = _xOffset;
-            else if (_playerInputMethod.MoveInput.x < 0)
-                _cmTransposer.m_FollowOffset.x = -_xOffset;*/
         }
     }
 }

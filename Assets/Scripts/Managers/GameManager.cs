@@ -9,6 +9,10 @@ namespace CrystalOfTime.Systems.Managers
         [SerializeField] private GameObject _player;
         [SerializeField] private Transform _playerDownPoint;
         [SerializeField] private List<ManageGroundColliders> _groundsColliders;
+        [SerializeField] private GameObject _portalLight;
+
+        //private PlayerColliding _playerColiding;
+        private float _crystalsCount;
 
         private void Awake()
         {
@@ -16,8 +20,26 @@ namespace CrystalOfTime.Systems.Managers
                 ground.Init(_playerDownPoint);
         }
 
+        private void OnEnable()
+        {
+            PlayerColliding.GrabCrystal += CheckCrystalCount;
+        }
+
+        private void OnDisable()
+        {
+            PlayerColliding.GrabCrystal -= CheckCrystalCount;
+        }
+
+        private void CheckCrystalCount(int crystal)
+        {
+            _crystalsCount = crystal;
+            if(_crystalsCount >= 3)
+                _portalLight.SetActive(true);
+            else
+                _portalLight.SetActive(false);
+        }
+
         public GameObject GetPlayer()
         { return _player; }
     }
 }
-
