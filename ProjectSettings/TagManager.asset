@@ -9,6 +9,7 @@ TagManager:
   - Coin
   - Potion
   - Enemy
+  - Spell
   layers:
   - Default
   - TransparentFX

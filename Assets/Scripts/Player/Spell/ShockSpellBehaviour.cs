@@ -1,3 +1,4 @@
+using CrystalOfTime.NPC.Enemeis;
 using System.Collections;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -10,6 +11,8 @@ namespace CrystalOfTime.Player.Spells
         [SerializeField] private Animator _animator;
         [SerializeField] private AnimatorController _hitController;
         [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private ProjectTags[] _notCollisionTags;
+        [SerializeField] private float _damage;
 
         private bool _isHit = false;
 
@@ -35,8 +38,12 @@ namespace CrystalOfTime.Player.Spells
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.tag != "Player" && collision.tag != "MainCamera")
+            if (CheckCollisionTag(collision.tag))
             {
+                if (collision.gameObject.TryGetComponent<EnemyController>(out EnemyController enemyController))
+                    enemyController.GetHit(_damage);
+
+
                 _isHit = true;
                 _animator.runtimeAnimatorController = _hitController;
                 StartCoroutine(DestroySpell());
@@ -46,12 +53,27 @@ namespace CrystalOfTime.Player.Spells
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.collider.tag != "Player" && collision.collider.tag != "MainCamera")
+            if (CheckCollisionTag(collision.collider.tag))
             {
                 _isHit = true;
                 _animator.runtimeAnimatorController = _hitController;
                 StartCoroutine(DestroySpell());
             }
+        }
+
+        private bool CheckCollisionTag(string collisionTag)
+        {
+            foreach (var tag in _notCollisionTags)
+            {
+                var strTag = tag.ToString();
+
+                if (collisionTag == strTag)
+                {
+                    Debug.Log(strTag);
+                    return false;
+                }
+            }
+            return true;
         }
 
         private IEnumerator DestroySpell()

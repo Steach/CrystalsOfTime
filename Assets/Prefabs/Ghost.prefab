@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 7297052607974614847}
   - component: {fileID: 3338078323354623512}
   - component: {fileID: 5822331224155379103}
+  - component: {fileID: -359764280285456924}
+  - component: {fileID: 506537601262984222}
+  - component: {fileID: 2228085435649998926}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Enemy
@@ -137,3 +140,55 @@ CircleCollider2D:
   m_Offset: {x: -0.006602034, y: -0.012603968}
   serializedVersion: 2
   m_Radius: 0.15758048
+--- !u!95 &-359764280285456924
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904839769243976483}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 96d862ae2541d33488f77d28e6bad8c8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &506537601262984222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904839769243976483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4906b0361ed86409f0fbf71872bb67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animatorController: {fileID: -359764280285456924}
+  _controllerDefault: {fileID: 9100000, guid: dc35da38494ad3b428592787983cde54, type: 2}
+  _controllerDamaged: {fileID: 9100000, guid: afc7ca92476acb74bbc22821084968d0, type: 2}
+  _ControllerDeath: {fileID: 9100000, guid: 96d862ae2541d33488f77d28e6bad8c8, type: 2}
+--- !u!114 &2228085435649998926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904839769243976483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5754a8f3bc54cd49bb6d7c7c647b515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hp: 100
+  _enemyAnimatorController: {fileID: 506537601262984222}
+  _enemyMovement: {fileID: 3338078323354623512}

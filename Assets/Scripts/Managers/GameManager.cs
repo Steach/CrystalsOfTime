@@ -11,7 +11,6 @@ namespace CrystalOfTime.Systems.Managers
         [SerializeField] private List<ManageGroundColliders> _groundsColliders;
         [SerializeField] private GameObject _portalLight;
 
-        //private PlayerColliding _playerColiding;
         private float _crystalsCount;
 
         private void Awake()

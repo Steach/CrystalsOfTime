@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8634769651265502942}
   m_Layer: 0
   m_Name: ShockSpell
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,6 +160,8 @@ MonoBehaviour:
   _animator: {fileID: 2719842829770329035}
   _hitController: {fileID: 9100000, guid: d90ad002d385c44ee9bd964c97f46ca9, type: 2}
   _spriteRenderer: {fileID: 5536190953236021897}
+  _notCollisionTags: 0400000007000000090000000b0000000800000003000000
+  _damage: 50
 --- !u!50 &8634769651265502942
 Rigidbody2D:
   serializedVersion: 4

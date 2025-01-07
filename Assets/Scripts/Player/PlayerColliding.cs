@@ -74,7 +74,6 @@ public class PlayerColliding : MonoBehaviour
             if (PlayerHP > 0)
             {
                 PlayerHP -= TakedDamage;
-                Debug.Log(PlayerHP);
                 PlayerDamaged?.Invoke(PlayerHP);
             }
             else if (PlayerHP <= 0)
