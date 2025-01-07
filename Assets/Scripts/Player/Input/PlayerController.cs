@@ -171,6 +171,34 @@ namespace CrystalOfTime.Systems.InputSystem
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""Attake"",
+            ""id"": ""894f3de5-841c-4ec5-b1de-c33e3efed341"",
+            ""actions"": [
+                {
+                    ""name"": ""CastSpell"",
+                    ""type"": ""Button"",
+                    ""id"": ""9341f658-22a2-4faf-8d5e-a45f1b032319"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""74ea1458-cd99-491f-b9ef-9b7753aae8f2"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CastSpell"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -179,6 +207,9 @@ namespace CrystalOfTime.Systems.InputSystem
             m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
             m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
             m_Movement_Jump = m_Movement.FindAction("Jump", throwIfNotFound: true);
+            // Attake
+            m_Attake = asset.FindActionMap("Attake", throwIfNotFound: true);
+            m_Attake_CastSpell = m_Attake.FindAction("CastSpell", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -290,10 +321,60 @@ namespace CrystalOfTime.Systems.InputSystem
             }
         }
         public MovementActions @Movement => new MovementActions(this);
+
+        // Attake
+        private readonly InputActionMap m_Attake;
+        private List<IAttakeActions> m_AttakeActionsCallbackInterfaces = new List<IAttakeActions>();
+        private readonly InputAction m_Attake_CastSpell;
+        public struct AttakeActions
+        {
+            private @PlayerController m_Wrapper;
+            public AttakeActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
+            public InputAction @CastSpell => m_Wrapper.m_Attake_CastSpell;
+            public InputActionMap Get() { return m_Wrapper.m_Attake; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(AttakeActions set) { return set.Get(); }
+            public void AddCallbacks(IAttakeActions instance)
+            {
+                if (instance == null || m_Wrapper.m_AttakeActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_AttakeActionsCallbackInterfaces.Add(instance);
+                @CastSpell.started += instance.OnCastSpell;
+                @CastSpell.performed += instance.OnCastSpell;
+                @CastSpell.canceled += instance.OnCastSpell;
+            }
+
+            private void UnregisterCallbacks(IAttakeActions instance)
+            {
+                @CastSpell.started -= instance.OnCastSpell;
+                @CastSpell.performed -= instance.OnCastSpell;
+                @CastSpell.canceled -= instance.OnCastSpell;
+            }
+
+            public void RemoveCallbacks(IAttakeActions instance)
+            {
+                if (m_Wrapper.m_AttakeActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IAttakeActions instance)
+            {
+                foreach (var item in m_Wrapper.m_AttakeActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_AttakeActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public AttakeActions @Attake => new AttakeActions(this);
         public interface IMovementActions
         {
             void OnMove(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
+        }
+        public interface IAttakeActions
+        {
+            void OnCastSpell(InputAction.CallbackContext context);
         }
     }
 }

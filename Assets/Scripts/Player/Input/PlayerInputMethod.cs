@@ -5,6 +5,9 @@ namespace CrystalOfTime.Systems.InputSystem
 {
     public class PlayerInputMethod : MonoBehaviour
     {
+        public delegate void PlayerCastingSpellTriggerHandler(bool isFlipping);
+        public event PlayerCastingSpellTriggerHandler PlayerCastingSpellTrigger;
+
         [Header("Player Move Settings")]
         [SerializeField] private Rigidbody2D _playerRigidbody2d;
         [SerializeField] private float _moveSpeed;
@@ -25,10 +28,26 @@ namespace CrystalOfTime.Systems.InputSystem
             _playerController = new PlayerController();
             _playerController.Enable();
 
+            
+        }
+
+        private void OnEnable()
+        {
             _playerController.Movement.Move.performed += PlayerMove;
             _playerController.Movement.Move.canceled += PlayerStopMove;
             _playerController.Movement.Jump.performed += Jump;
+            _playerController.Attake.CastSpell.performed += CastingSpell;
             PlayerColliding.PlayerDeath += CheckPlayerDeath;
+        }
+
+        private void OnDisable()
+        {
+            _playerController.Movement.Move.performed -= PlayerMove;
+            _playerController.Movement.Move.canceled -= PlayerStopMove;
+            _playerController.Movement.Jump.performed -= Jump;
+            _playerController.Attake.CastSpell.performed -= CastingSpell;
+            PlayerColliding.PlayerDeath -= CheckPlayerDeath;
+            _playerController.Disable();
         }
 
         public void PlayerMove(InputAction.CallbackContext context)
@@ -45,6 +64,14 @@ namespace CrystalOfTime.Systems.InputSystem
         {
             if(_isGrounded)
                 _playerRigidbody2d.AddForce(Vector2.up * _jumpForce * Time.fixedDeltaTime, ForceMode2D.Impulse);
+        }
+
+        private void CastingSpell(InputAction.CallbackContext context)
+        {
+            if (MoveInput.x >= 0)
+                PlayerCastingSpellTrigger?.Invoke(false);
+            else
+                PlayerCastingSpellTrigger?.Invoke(true);
         }
 
         private void Update()
