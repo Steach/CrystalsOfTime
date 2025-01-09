@@ -69,7 +69,6 @@ namespace CrystalOfTime.Player.Spells
 
                 if (collisionTag == strTag)
                 {
-                    Debug.Log(strTag);
                     return false;
                 }
             }

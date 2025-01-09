@@ -8,6 +8,9 @@ namespace CrystalOfTime.Systems.InputSystem
         public delegate void PlayerCastingSpellTriggerHandler(bool isFlipping);
         public event PlayerCastingSpellTriggerHandler PlayerCastingSpellTrigger;
 
+        public delegate void PlayerJumpTriggerHandler();
+        public event PlayerJumpTriggerHandler PlayerJumpTrigger;
+
         [Header("Player Move Settings")]
         [SerializeField] private Rigidbody2D _playerRigidbody2d;
         [SerializeField] private float _moveSpeed;
@@ -18,17 +21,17 @@ namespace CrystalOfTime.Systems.InputSystem
         [SerializeField] private LayerMask _layerMask;
 
         private PlayerController _playerController;
-        private bool _isGrounded = false;
+
         private bool _isDead = false;
 
         public Vector2 MoveInput { get; private set; }
+        public bool IsGrounded { get; private set; }
 
         private void Awake()
         {
             _playerController = new PlayerController();
             _playerController.Enable();
-
-            
+            IsGrounded = false;
         }
 
         private void OnEnable()
@@ -62,8 +65,11 @@ namespace CrystalOfTime.Systems.InputSystem
 
         public void Jump(InputAction.CallbackContext context)
         {
-            if(_isGrounded)
+            if(IsGrounded)
+            {
                 _playerRigidbody2d.AddForce(Vector2.up * _jumpForce * Time.fixedDeltaTime, ForceMode2D.Impulse);
+                PlayerJumpTrigger?.Invoke();
+            }  
         }
 
         private void CastingSpell(InputAction.CallbackContext context)
@@ -99,7 +105,7 @@ namespace CrystalOfTime.Systems.InputSystem
             Vector2 origin = transform.position;
             Vector2 direction = Vector3.down;
 
-            _isGrounded = Physics2D.Raycast(origin, direction, _rayDistance, _layerMask);
+            IsGrounded = Physics2D.Raycast(origin, direction, _rayDistance, _layerMask);
         }
 
         private void CheckPlayerDeath(bool isDead)
