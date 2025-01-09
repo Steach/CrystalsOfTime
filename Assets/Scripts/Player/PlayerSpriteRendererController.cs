@@ -4,12 +4,12 @@ using UnityEngine;
 public class PlayerSpriteRendererController : MonoBehaviour
 {
     private PlayerInputMethod _playerInput;
-    private SpriteRenderer _spriteRenderer;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
 
     private void Awake()
     { 
         _playerInput = this.gameObject.GetComponent<PlayerInputMethod>();
-        _spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
+        //_spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
     }
 
     private void Update()

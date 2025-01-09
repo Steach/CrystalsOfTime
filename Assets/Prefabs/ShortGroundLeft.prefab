@@ -10,16 +10,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 821685295565001951, guid: a97b19ce8b038634a9ee6d75665b9be5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.4903
+      value: -2.667
       objectReference: {fileID: 0}
     - target: {fileID: 821685295565001951, guid: a97b19ce8b038634a9ee6d75665b9be5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.433
+      value: -0.069
       objectReference: {fileID: 0}
     - target: {fileID: 1160753930936809058, guid: a97b19ce8b038634a9ee6d75665b9be5, type: 3}
       propertyPath: _groundCollider
       value: 
-      objectReference: {fileID: 164453446700310358}
+      objectReference: {fileID: 7693029642234631932}
     - target: {fileID: 4326039838654417519, guid: a97b19ce8b038634a9ee6d75665b9be5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.75
@@ -62,15 +62,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5489746559988207999, guid: a97b19ce8b038634a9ee6d75665b9be5, type: 3}
       propertyPath: m_Name
-      value: ShortGround (1) Variant
+      value: ShortGroundLeft
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a97b19ce8b038634a9ee6d75665b9be5, type: 3}
---- !u!61 &164453446700310358 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 2827964124205561007, guid: a97b19ce8b038634a9ee6d75665b9be5, type: 3}
+--- !u!68 &7693029642234631932 stripped
+EdgeCollider2D:
+  m_CorrespondingSourceObject: {fileID: 5743657813474360581, guid: a97b19ce8b038634a9ee6d75665b9be5, type: 3}
   m_PrefabInstance: {fileID: 2699542846884228089}
   m_PrefabAsset: {fileID: 0}
