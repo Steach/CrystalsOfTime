@@ -11,7 +11,6 @@ namespace CrystalOfTime.Systems.Managers
         [Header("Count text fields")]
         [SerializeField] private TextMeshProUGUI _crystalCount;
         [SerializeField] private TextMeshProUGUI _coinCount;
-        [SerializeField] private TextMeshProUGUI _potionCount;
         [SerializeField] private Slider _playerHPSlider;
 
         private PlayerColliding _playerColliding;
@@ -28,7 +27,6 @@ namespace CrystalOfTime.Systems.Managers
 
             PlayerColliding.GrabCoin += UpdateUICoin;
             PlayerColliding.GrabCrystal += UpdateUICrystal;
-            PlayerColliding.GrabHeath += UpdateUIHealth;
 
             _playerColliding.PlayerDamaged += UpdateHpSlider;
         }
@@ -37,7 +35,6 @@ namespace CrystalOfTime.Systems.Managers
         {
             PlayerColliding.GrabCoin -= UpdateUICoin;
             PlayerColliding.GrabCrystal -= UpdateUICrystal;
-            PlayerColliding.GrabHeath -= UpdateUIHealth;
             _playerColliding.PlayerDamaged -= UpdateHpSlider;
         }
 
@@ -45,7 +42,6 @@ namespace CrystalOfTime.Systems.Managers
 
         private void UpdateUICrystal(int crystal) => _crystalCount.text = crystal.ToString();
 
-        private void UpdateUIHealth(int potion) => _potionCount.text = potion.ToString();
 
         private PlayerColliding GetPlayerColliding()
         {

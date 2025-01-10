@@ -3369,7 +3369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &544159168
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6555,7 +6555,6 @@ MonoBehaviour:
   _gameManager: {fileID: 649173300}
   _crystalCount: {fileID: 403514076}
   _coinCount: {fileID: 1719146484}
-  _potionCount: {fileID: 2048917670}
   _playerHPSlider: {fileID: 1861729365}
 --- !u!1 &1135523829
 GameObject:
@@ -11358,6 +11357,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5255052113573963701, guid: 9aa24a9b23729964783cb419c3329056, type: 3}
   m_PrefabInstance: {fileID: 1871394134}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &1875767639 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5155588414934619758, guid: c25c5a0798878484f9855f7906ba039b, type: 3}
+  m_PrefabInstance: {fileID: 930594381749558407}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1881909023 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4899290440667985457, guid: 325f7f822bc85fc4e89a76cda2f24a93, type: 3}
@@ -13587,6 +13591,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9153240056813656630, guid: c25c5a0798878484f9855f7906ba039b, type: 3}
+      propertyPath: _spriteRenderer
+      value: 
+      objectReference: {fileID: 1875767639}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

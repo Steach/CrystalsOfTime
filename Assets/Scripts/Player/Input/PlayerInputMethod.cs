@@ -19,6 +19,8 @@ namespace CrystalOfTime.Systems.InputSystem
         [SerializeField] private float _jumpForce;
         [SerializeField] private float _rayDistance;
         [SerializeField] private LayerMask _layerMask;
+        [Space]
+        [SerializeField] private SpriteRenderer _spriteRenderer;
 
         private PlayerController _playerController;
 
@@ -74,10 +76,12 @@ namespace CrystalOfTime.Systems.InputSystem
 
         private void CastingSpell(InputAction.CallbackContext context)
         {
-            if (MoveInput.x >= 0)
+            if (MoveInput.x > 0)
                 PlayerCastingSpellTrigger?.Invoke(false);
-            else
+            else if (MoveInput.x < 0)
                 PlayerCastingSpellTrigger?.Invoke(true);
+            else if (MoveInput.x == 0)
+                PlayerCastingSpellTrigger?.Invoke(_spriteRenderer.flipX);
         }
 
         private void Update()

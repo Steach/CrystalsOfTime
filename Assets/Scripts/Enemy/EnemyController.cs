@@ -28,8 +28,6 @@ namespace CrystalOfTime.NPC.Enemeis
         {
             _hp = _hp - damage;
 
-            Debug.Log($"Enemy get {damage} damage");
-
             if(_hp > 0)
                 EnemyGetHitTrigger?.Invoke();
             else if (_hp <= 0)

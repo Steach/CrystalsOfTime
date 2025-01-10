@@ -4,7 +4,6 @@ public class PlayerColliding : MonoBehaviour
 {
     public int Crystals { get; private set; }
     public int Coins { get; private set; }
-    public int Potions { get; private set; }
 
     public float PlayerHP { get; private set; }
 
@@ -23,24 +22,23 @@ public class PlayerColliding : MonoBehaviour
     public delegate void PlayerDeathTriggerHandler(bool isDead);
     public static event PlayerDeathTriggerHandler PlayerDeath;
 
-    private float TakedDamage = 10f;
+    private float _takedDamage = 10f;
+    private float _healPlayer = 30f;
+    private float _maxPlayerHP = 100;
 
     private void Awake()
     {
-        PlayerHP = 100;
+        PlayerHP = _maxPlayerHP;
         Crystals = 0;
         Coins = 0;
-        Potions = 0;
         GrabCoin?.Invoke(Coins);
         GrabCrystal?.Invoke(Crystals);
-        GrabHeath?.Invoke(Potions);
     }
 
     private void Start()
     {
         GrabCoin?.Invoke(Coins);
         GrabCrystal?.Invoke(Crystals);
-        GrabHeath?.Invoke(Potions);
     }
 
     private void Update()
@@ -65,15 +63,24 @@ public class PlayerColliding : MonoBehaviour
         }
         else if (collision.tag == "Potion")
         {
-            Potions++;
-            GrabHeath?.Invoke(Potions);
-            Destroy(collision.gameObject);
+            if (PlayerHP < _maxPlayerHP)
+            {
+                var missingHP = _maxPlayerHP - PlayerHP;
+
+                if (missingHP > _healPlayer)
+                    PlayerHP += _healPlayer;
+                else if(missingHP < _healPlayer)
+                    PlayerHP = _maxPlayerHP;
+
+                Destroy(collision.gameObject);
+                PlayerDamaged?.Invoke(PlayerHP);
+            }
         }
         else if (collision.tag == "Enemy")
         {
             if (PlayerHP > 0)
             {
-                PlayerHP -= TakedDamage;
+                PlayerHP -= _takedDamage;
                 PlayerDamaged?.Invoke(PlayerHP);
             }
             else if (PlayerHP <= 0)
