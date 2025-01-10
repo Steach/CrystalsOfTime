@@ -1,4 +1,5 @@
 using CrystalOfTime.Systems.Environments;
+using CrystalOfTime.Systems.Environments.Portal;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace CrystalOfTime.Systems.Managers
         [SerializeField] private GameObject _player;
         [SerializeField] private Transform _playerDownPoint;
         [SerializeField] private List<ManageGroundColliders> _groundsColliders;
-        [SerializeField] private GameObject _portalLight;
+        [SerializeField] private GameObject _portal;
 
         private float _crystalsCount;
 
@@ -32,10 +33,16 @@ namespace CrystalOfTime.Systems.Managers
         private void CheckCrystalCount(int crystal)
         {
             _crystalsCount = crystal;
-            if(_crystalsCount >= 3)
-                _portalLight.SetActive(true);
+            if (_crystalsCount >= 3)
+            {
+                var portalController = _portal.GetComponent<PortalAnimationController>();
+                portalController.InitPortal();
+            }
             else
-                _portalLight.SetActive(false);
+            {
+                var portalController = _portal.GetComponent<PortalAnimationController>();
+                portalController.ClosePortal();
+            }
         }
 
         public GameObject GetPlayer()
