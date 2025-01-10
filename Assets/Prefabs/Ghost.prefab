@@ -105,6 +105,10 @@ MonoBehaviour:
   _pointLeft: {fileID: 0}
   _pointRight: {fileID: 0}
   _spriteRenderer: {fileID: 7297052607974614847}
+  _checkedTags: 0700000004000000
+  _checkedLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!58 &5822331224155379103
 CircleCollider2D:
   m_ObjectHideFlags: 0
