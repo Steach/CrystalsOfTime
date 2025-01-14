@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5563444012820864881}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DownTransformPoint
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 4196385190347156142}
   - component: {fileID: 5155588414934619758}
   - component: {fileID: 5955634841819876714}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1000
   m_Sprite: {fileID: -1226109363, guid: 57d03533971b4604d80adab93af00747, type: 3}
-  m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -115,7 +115,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &5955634841819876714
 Animator:
   serializedVersion: 5
@@ -126,7 +126,7 @@ Animator:
   m_GameObject: {fileID: 3707289377873532299}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 54bbe0d82471460459d8eb5c5f233ef2, type: 2}
+  m_Controller: {fileID: 9100000, guid: 70a6c3d242349e841a36ccac3d029ca3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -151,8 +151,8 @@ GameObject:
   - component: {fileID: 3391046932844410010}
   - component: {fileID: 7131066692260132152}
   - component: {fileID: 7622546894616796789}
-  - component: {fileID: 1770388502236592643}
-  m_Layer: 0
+  - component: {fileID: 8085243206285546037}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -230,6 +230,7 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 64
+  _spriteRenderer: {fileID: 5155588414934619758}
 --- !u!50 &3391046932844410010
 Rigidbody2D:
   serializedVersion: 4
@@ -282,48 +283,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 5155588414934619758}
---- !u!61 &1770388502236592643
-BoxCollider2D:
+--- !u!114 &8085243206285546037
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6684488177997900818}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.00081539154, y: -0.018752038}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.22, y: 0.32}
-    newSize: {x: 1, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.1250916, y: 1.0892183}
-  m_EdgeRadius: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06235b3cad996764f94aa2f5b9c5cf6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 5955634841819876714}
+  _playerInputMethod: {fileID: 9153240056813656630}
+  _idle: {fileID: 9100000, guid: 54bbe0d82471460459d8eb5c5f233ef2, type: 2}
+  _run: {fileID: 9100000, guid: 7bdd045be2bc4df4fab3c5b8d135d187, type: 2}
+  _jump: {fileID: 9100000, guid: d94b4a36b12b9e5418b638a62601bb60, type: 2}
+  _castingSpell: {fileID: 9100000, guid: 70a6c3d242349e841a36ccac3d029ca3, type: 2}
+  _meleeAttake: {fileID: 0}
+  _getHit: {fileID: 9100000, guid: 47c761aac886aeb419859fed8127e022, type: 2}
+  _death: {fileID: 9100000, guid: f8302ff1c766e8546ae2669475b45010, type: 2}
+  _fall: {fileID: 9100000, guid: ea6b088fdd51edd4baa9038b2ef0a0ee, type: 2}
+  _idleTime: 1
+  _runTime: 0.5
+  _castingTime: 0.7
+  _jumpTime: 1.15
+  _meleeAttakeTime: 0
+  _deathTime: 1.3
+  _getHitTime: 0.25
+  _fallTime: 0.1

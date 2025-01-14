@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -25,6 +26,8 @@ namespace CrystalOfTime.Systems.InputSystem
         private PlayerController _playerController;
 
         private bool _isDead = false;
+        private bool _isCasting = false;
+
 
         public Vector2 MoveInput { get; private set; }
         public bool IsGrounded { get; private set; }
@@ -67,7 +70,7 @@ namespace CrystalOfTime.Systems.InputSystem
 
         public void Jump(InputAction.CallbackContext context)
         {
-            if(IsGrounded)
+            if(IsGrounded && !_isCasting)
             {
                 _playerRigidbody2d.AddForce(Vector2.up * _jumpForce * Time.fixedDeltaTime, ForceMode2D.Impulse);
                 PlayerJumpTrigger?.Invoke();
@@ -76,17 +79,24 @@ namespace CrystalOfTime.Systems.InputSystem
 
         private void CastingSpell(InputAction.CallbackContext context)
         {
-            if (MoveInput.x > 0)
-                PlayerCastingSpellTrigger?.Invoke(false);
-            else if (MoveInput.x < 0)
-                PlayerCastingSpellTrigger?.Invoke(true);
-            else if (MoveInput.x == 0)
-                PlayerCastingSpellTrigger?.Invoke(_spriteRenderer.flipX);
+            if (IsGrounded && !_isCasting)
+            {
+                _isCasting = true;
+
+                if (MoveInput.x > 0)
+                    PlayerCastingSpellTrigger?.Invoke(false);
+                else if (MoveInput.x < 0)
+                    PlayerCastingSpellTrigger?.Invoke(true);
+                else if (MoveInput.x == 0)
+                    PlayerCastingSpellTrigger?.Invoke(_spriteRenderer.flipX);
+
+                StartCoroutine(ResetIsCasting());
+            }
         }
 
         private void Update()
         {
-            if (!_isDead)
+            if (!_isDead && !_isCasting)
             {
                 CheckPlayerIsGrounded();
                 Vector3 movement = new Vector3(MoveInput.x, 0, 0);
@@ -115,6 +125,12 @@ namespace CrystalOfTime.Systems.InputSystem
         private void CheckPlayerDeath(bool isDead)
         {
             _isDead = isDead;
+        }
+
+        private IEnumerator ResetIsCasting()
+        {
+            yield return new WaitForSeconds(0.7f);
+            _isCasting = false;
         }
     }
 }

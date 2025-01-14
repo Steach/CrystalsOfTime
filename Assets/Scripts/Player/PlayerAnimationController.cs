@@ -2,6 +2,7 @@ using CrystalOfTime.Systems.InputSystem;
 using System.Collections;
 using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace CrystalOfTime.Player.Animation
 {
@@ -31,7 +32,10 @@ namespace CrystalOfTime.Player.Animation
         [SerializeField] private float _fallTime;
 
         private bool _isJump = false;
-        private bool _jumpAnimationIsFinish = true;
+        private bool _isCasting = false;
+        private bool _isJumpAnimationIsFinish = true;
+        private bool _isDeath = false;
+        private bool _isGetHit = false;
 
         private void Awake()
         {
@@ -41,29 +45,70 @@ namespace CrystalOfTime.Player.Animation
         private void OnEnable()
         {
             _playerInputMethod.PlayerJumpTrigger += JumpingAnimation;
+            _playerInputMethod.PlayerCastingSpellTrigger += CastingSpell;
+            PlayerColliding.PlayerDeath += PlayerIsDead;
         }
 
         private void Update()
         {
-            if ((_playerInputMethod.MoveInput.x > 0 || _playerInputMethod.MoveInput.x < 0) && _playerInputMethod.IsGrounded && !_isJump)
-                ChangeAnimation(_run);
-            else if (_playerInputMethod.MoveInput.x == 0 && _playerInputMethod.IsGrounded && !_isJump)
-                ChangeAnimation(_idle);
-
-
-            if (_jumpAnimationIsFinish && _isJump && _playerInputMethod.IsGrounded)
+            if (!_isDeath)
             {
-                _isJump = false;
+                if (!_isGetHit)
+                {
+                    if (!_isCasting)
+                    {
+                        if ((_playerInputMethod.MoveInput.x > 0 || _playerInputMethod.MoveInput.x < 0) && _playerInputMethod.IsGrounded && !_isJump)
+                            ChangeAnimation(_run);
+                        else if (_playerInputMethod.MoveInput.x == 0 && _playerInputMethod.IsGrounded && !_isJump)
+                            ChangeAnimation(_idle);
+
+
+                        if (_isJumpAnimationIsFinish && _isJump && _playerInputMethod.IsGrounded)
+                        {
+                            _isJump = false;
+                        }
+                        else if (_isJumpAnimationIsFinish && _isJump && !_playerInputMethod.IsGrounded)
+                        {
+                            ChangeAnimation(_fall);
+                        }
+                        else if (!_isJump && !_playerInputMethod.IsGrounded)
+                        {
+                            ChangeAnimation(_fall);
+                        }
+                    }
+                    else if (_isCasting)
+                    {
+                        ChangeAnimation(_castingSpell);
+                    }
+                }
+                else if (_isGetHit)
+                {
+                    ChangeAnimation(_getHit);
+                }
             }
-            else if (_jumpAnimationIsFinish && _isJump && !_playerInputMethod.IsGrounded)
+            else if (_isDeath)
             {
-                ChangeAnimation(_fall);
+                ChangeAnimation(_death);
             }
         }
 
         private void OnDestroy()
         {
             _playerInputMethod.PlayerJumpTrigger -= JumpingAnimation;
+            _playerInputMethod.PlayerCastingSpellTrigger -= CastingSpell;
+            PlayerColliding.PlayerDeath -= PlayerIsDead;
+        }
+
+        private void CastingSpell(bool isCasting)
+        {
+            _isCasting = true;
+            ChangeAnimation(_castingSpell);
+            StartCoroutine(RestoreAnimationParametrs(_castingTime, PlayerAnimationControllersEnum.Casting));
+        }
+
+        private void PlayerIsDead(bool isDead)
+        {
+            _isDeath = true;
         }
 
         private void ChangeAnimation(AnimatorController newAnimatorController)
@@ -76,13 +121,38 @@ namespace CrystalOfTime.Player.Animation
             StartCoroutine(Jump());
         }
 
+        private IEnumerator RestoreAnimationParametrs(float animationTimer, PlayerAnimationControllersEnum controllerID)
+        {
+            yield return new WaitForSeconds(animationTimer);
+
+            switch (controllerID)
+            {
+                case PlayerAnimationControllersEnum.Idle:
+                    break;
+                case PlayerAnimationControllersEnum.Run:
+                    break;
+                case PlayerAnimationControllersEnum.Jump:
+                    break;
+                case PlayerAnimationControllersEnum.Fall:
+                    break;
+                case PlayerAnimationControllersEnum.GetHit:
+                    _isGetHit = false;
+                    break;
+                case PlayerAnimationControllersEnum.Casting:
+                    _isCasting = false;
+                    break;
+                case PlayerAnimationControllersEnum.Death:
+                    break;
+            }
+        }
+
         private IEnumerator Jump()
         {
             _isJump = true;
-            _jumpAnimationIsFinish = false;
+            _isJumpAnimationIsFinish = false;
             ChangeAnimation(_jump);
             yield return new WaitForSeconds(_jumpTime);
-            _jumpAnimationIsFinish = true;
+            _isJumpAnimationIsFinish = true;
 
             if (_playerInputMethod.IsGrounded == true)
             {
