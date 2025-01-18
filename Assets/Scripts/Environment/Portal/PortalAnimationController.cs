@@ -10,6 +10,7 @@ namespace CrystalOfTime.Systems.Environments.Portal
         [SerializeField] private GameManager _gameManager;
         [SerializeField] private Animator _animator;
         [SerializeField] private SpriteRenderer _portalSpriteRenderer;
+        [SerializeField] private Collider2D _portalCollider;
         [Space]
         [Header("Animator Controllers")]
         [SerializeField] private AnimatorController _openingPortalController;
@@ -26,12 +27,14 @@ namespace CrystalOfTime.Systems.Environments.Portal
             if (!_isInited)
             {
                 _isInited = true;
+                _portalCollider.enabled = true;
                 StartCoroutine(OpenPortal());
             }
         }
 
         public void ClosePortal()
         {
+            _portalCollider.enabled = false;
             _animator.runtimeAnimatorController = null;
             _portalSpriteRenderer.sprite = null;
         }

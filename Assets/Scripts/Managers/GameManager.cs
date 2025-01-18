@@ -12,6 +12,8 @@ namespace CrystalOfTime.Systems.Managers
         [SerializeField] private List<ManageGroundColliders> _groundsColliders;
         [SerializeField] private GameObject _portal;
 
+        private PlayerColliding _playerColliding;
+
         private float _crystalsCount;
 
         private void Awake()
@@ -22,12 +24,15 @@ namespace CrystalOfTime.Systems.Managers
 
         private void OnEnable()
         {
+            _playerColliding = _player.GetComponent<PlayerColliding>();
             PlayerColliding.GrabCrystal += CheckCrystalCount;
+            _playerColliding.PlayerPortalEevent += LevelComplete;
         }
 
         private void OnDisable()
         {
             PlayerColliding.GrabCrystal -= CheckCrystalCount;
+            _playerColliding.PlayerPortalEevent -= LevelComplete;
         }
 
         private void CheckCrystalCount(int crystal)
@@ -43,6 +48,11 @@ namespace CrystalOfTime.Systems.Managers
                 var portalController = _portal.GetComponent<PortalAnimationController>();
                 portalController.ClosePortal();
             }
+        }
+
+        private void LevelComplete()
+        {
+            Debug.Log($"Level is complete! Congratulation!");
         }
 
         public GameObject GetPlayer()

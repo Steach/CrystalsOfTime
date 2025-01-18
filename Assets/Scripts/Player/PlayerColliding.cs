@@ -19,6 +19,9 @@ public class PlayerColliding : MonoBehaviour
     public delegate void PlayerDamagedEventHandler(float currentHP);
     public event PlayerDamagedEventHandler PlayerDamaged;
 
+    public delegate void PlayerPortalEventHandler();
+    public event PlayerPortalEventHandler PlayerPortalEevent;
+
     public delegate void PlayerDeathTriggerHandler(bool isDead);
     public static event PlayerDeathTriggerHandler PlayerDeath;
 
@@ -69,7 +72,7 @@ public class PlayerColliding : MonoBehaviour
 
                 if (missingHP > _healPlayer)
                     PlayerHP += _healPlayer;
-                else if(missingHP < _healPlayer)
+                else if (missingHP < _healPlayer)
                     PlayerHP = _maxPlayerHP;
 
                 Destroy(collision.gameObject);
@@ -87,6 +90,10 @@ public class PlayerColliding : MonoBehaviour
             {
                 PlayerDeath?.Invoke(true);
             }
+        }
+        else if (collision.tag == "Portal")
+        {
+            PlayerPortalEevent?.Invoke();
         }
     }
 }

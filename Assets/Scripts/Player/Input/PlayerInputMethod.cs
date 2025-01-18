@@ -26,9 +26,8 @@ namespace CrystalOfTime.Systems.InputSystem
         private PlayerController _playerController;
 
         private bool _isDead = false;
-        private bool _isCasting = false;
 
-
+        public bool IsCasting { get; private set; }
         public Vector2 MoveInput { get; private set; }
         public bool IsGrounded { get; private set; }
 
@@ -70,7 +69,7 @@ namespace CrystalOfTime.Systems.InputSystem
 
         public void Jump(InputAction.CallbackContext context)
         {
-            if(IsGrounded && !_isCasting)
+            if(IsGrounded && !IsCasting)
             {
                 _playerRigidbody2d.AddForce(Vector2.up * _jumpForce * Time.fixedDeltaTime, ForceMode2D.Impulse);
                 PlayerJumpTrigger?.Invoke();
@@ -79,9 +78,9 @@ namespace CrystalOfTime.Systems.InputSystem
 
         private void CastingSpell(InputAction.CallbackContext context)
         {
-            if (IsGrounded && !_isCasting)
+            if (IsGrounded && !IsCasting)
             {
-                _isCasting = true;
+                IsCasting = true;
 
                 if (MoveInput.x > 0)
                     PlayerCastingSpellTrigger?.Invoke(false);
@@ -96,7 +95,7 @@ namespace CrystalOfTime.Systems.InputSystem
 
         private void Update()
         {
-            if (!_isDead && !_isCasting)
+            if (!_isDead && !IsCasting)
             {
                 CheckPlayerIsGrounded();
                 Vector3 movement = new Vector3(MoveInput.x, 0, 0);
@@ -130,7 +129,7 @@ namespace CrystalOfTime.Systems.InputSystem
         private IEnumerator ResetIsCasting()
         {
             yield return new WaitForSeconds(0.7f);
-            _isCasting = false;
+            IsCasting = false;
         }
     }
 }
