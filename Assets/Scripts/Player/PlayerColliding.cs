@@ -13,7 +13,7 @@ public class PlayerColliding : MonoBehaviour
     public delegate void GrabCrystalTriggerEventHandler(int crystal);
     public static event GrabCrystalTriggerEventHandler GrabCrystal;
 
-    public delegate void GrabHealthTriggerEventHandler(int health);
+    public delegate void GrabHealthTriggerEventHandler();
     public static event GrabHealthTriggerEventHandler GrabHeath;
 
     public delegate void PlayerDamagedEventHandler(float currentHP);
@@ -77,6 +77,7 @@ public class PlayerColliding : MonoBehaviour
 
                 Destroy(collision.gameObject);
                 PlayerDamaged?.Invoke(PlayerHP);
+                GrabHeath?.Invoke();
             }
         }
         else if (collision.tag == "Enemy")

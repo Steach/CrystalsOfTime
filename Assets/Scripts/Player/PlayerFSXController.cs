@@ -15,18 +15,22 @@ namespace CrystalOfTime.Player.SFX
         [SerializeField] private AudioClip _deathSound;
 
         private PlayerInputMethod _playerInputMethod;
+        private PlayerColliding _playerColliding;
 
         private void Awake()
         {
             _playerInputMethod = gameObject.GetComponent<PlayerInputMethod>();
+            _playerColliding = gameObject.GetComponent<PlayerColliding>();
             _playerInputMethod.PlayerJumpTrigger += PlayJumpSFX;
             _playerInputMethod.PlayerCastingSpellTrigger += PlayerCastingSpellSFX;
+            _playerColliding.PlayerDamaged += GetHitSFX;
         }
 
         private void OnDestroy()
         {
             _playerInputMethod.PlayerJumpTrigger -= PlayJumpSFX;
             _playerInputMethod.PlayerCastingSpellTrigger -= PlayerCastingSpellSFX;
+            _playerColliding.PlayerDamaged -= GetHitSFX;
         }
 
         private void Update()
@@ -54,6 +58,11 @@ namespace CrystalOfTime.Player.SFX
         private void PlayerCastingSpellSFX(bool isCasting)
         {
             _audioSource.PlayOneShot(_castingSpellSound);
+        }
+
+        private void GetHitSFX(float damage)
+        {
+            _audioSource.PlayOneShot(_getHitSound);
         }
     }
 }
