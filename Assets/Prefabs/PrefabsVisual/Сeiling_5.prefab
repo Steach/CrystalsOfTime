@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9016034277465503070}
   - component: {fileID: 5839433001624209573}
+  - component: {fileID: 1385390961679609994}
   m_Layer: 0
   m_Name: "\u0421eiling_5"
   m_TagString: Untagged
@@ -84,3 +85,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1385390961679609994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3436013903392776493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 1
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.16242789, y: -0.17621331, z: 0}
+  - {x: -0.48101312, y: -0.017068205, z: 0}
+  - {x: -0.48, y: 0.32, z: 0}
+  - {x: 0.48, y: 0.32, z: 0}
+  - {x: 0.48, y: -0.32, z: 0}
+  - {x: 0.14792445, y: -0.3232615, z: 0}
+  m_ShapePathHash: -217255517
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -68098
+  m_LocalBounds:
+    m_Center: {x: -0.0005065799, y: -0.0016307533, z: 0}
+    m_Extent: {x: 0.48050654, y: 0.32163075, z: 0}

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8635977195085428885}
   - component: {fileID: 4344836576822818592}
+  - component: {fileID: 463504764591461813}
   m_Layer: 0
   m_Name: NewStairs_1
   m_TagString: Untagged
@@ -84,3 +85,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &463504764591461813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3786101379945438322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 1
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: 0.063870296, y: -0.23783736, z: 0}
+  - {x: -0.2441405, y: 0.0722587, z: 0}
+  - {x: -0.24359497, y: 0.23739667, z: 0}
+  - {x: -0.19499321, y: 0.23739667, z: 0}
+  - {x: 0.24238083, y: -0.19856355, z: 0}
+  - {x: 0.2421967, y: -0.23763604, z: 0}
+  m_ShapePathHash: 688742695
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -52734
+  m_LocalBounds:
+    m_Center: {x: -0.00087983906, y: -0.00022034347, z: 0}
+    m_Extent: {x: 0.24326067, y: 0.23761702, z: 0}
