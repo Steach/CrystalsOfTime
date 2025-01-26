@@ -1,0 +1,34 @@
+{
+    "name": "UIInputController",
+    "maps": [
+        {
+            "name": "Menu",
+            "id": "09015c68-405b-494a-be7d-fc3cda8e11c0",
+            "actions": [
+                {
+                    "name": "Open",
+                    "type": "Button",
+                    "id": "be3fe13c-df71-42f3-83ae-fa6cc52e4884",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2f30978e-e27f-4409-a3ef-2b84d1749db7",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Open",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

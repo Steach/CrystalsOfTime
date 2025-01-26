@@ -20,7 +20,7 @@ public class PlayerColliding : MonoBehaviour
     public event PlayerDamagedEventHandler PlayerDamaged;
 
     public delegate void PlayerPortalEventHandler();
-    public event PlayerPortalEventHandler PlayerPortalEevent;
+    public event PlayerPortalEventHandler PlayerPortalEvent;
 
     public delegate void PlayerDeathTriggerHandler(bool isDead);
     public static event PlayerDeathTriggerHandler PlayerDeath;
@@ -94,7 +94,7 @@ public class PlayerColliding : MonoBehaviour
         }
         else if (collision.tag == "Portal")
         {
-            PlayerPortalEevent?.Invoke();
+            PlayerPortalEvent?.Invoke();
         }
     }
 }

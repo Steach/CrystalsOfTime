@@ -2,6 +2,7 @@ using CrystalOfTime.Systems.Environments;
 using CrystalOfTime.Systems.Environments.Portal;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CrystalOfTime.Systems.Managers
 {
@@ -26,13 +27,13 @@ namespace CrystalOfTime.Systems.Managers
         {
             _playerColliding = _player.GetComponent<PlayerColliding>();
             PlayerColliding.GrabCrystal += CheckCrystalCount;
-            _playerColliding.PlayerPortalEevent += LevelComplete;
+            _playerColliding.PlayerPortalEvent += LevelComplete;
         }
 
         private void OnDisable()
         {
             PlayerColliding.GrabCrystal -= CheckCrystalCount;
-            _playerColliding.PlayerPortalEevent -= LevelComplete;
+            _playerColliding.PlayerPortalEvent -= LevelComplete;
         }
 
         private void CheckCrystalCount(int crystal)
@@ -52,7 +53,12 @@ namespace CrystalOfTime.Systems.Managers
 
         private void LevelComplete()
         {
-            Debug.Log($"Level is complete! Congratulation!");
+            var currentScene = SceneManager.GetActiveScene().buildIndex;
+
+            if (currentScene == 0)
+                SceneManager.LoadScene(1);
+            else if(currentScene == 1)
+                SceneManager.LoadScene(2);
         }
 
         public GameObject GetPlayer()

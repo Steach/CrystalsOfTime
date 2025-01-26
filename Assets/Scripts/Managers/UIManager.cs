@@ -1,5 +1,8 @@
+using CrystalOfTime.Systems.Command;
+using CrystalOfTime.Systems.InputSystem;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace CrystalOfTime.Systems.Managers
@@ -12,9 +15,13 @@ namespace CrystalOfTime.Systems.Managers
         [SerializeField] private TextMeshProUGUI _crystalCount;
         [SerializeField] private TextMeshProUGUI _coinCount;
         [SerializeField] private Slider _playerHPSlider;
+        [SerializeField] private ExecutorTrigger _executorTrigger;
 
         private PlayerColliding _playerColliding;
         private float _maxHPValue;
+
+        private UIInputController _inputController;
+        private bool _menuIsOpened = false;
 
         private void Start()
         {
@@ -23,19 +30,26 @@ namespace CrystalOfTime.Systems.Managers
 
         private void OnEnable()
         {
+            _inputController = new UIInputController();
+            _inputController.Enable();
             _playerColliding = GetPlayerColliding();
 
             PlayerColliding.GrabCoin += UpdateUICoin;
             PlayerColliding.GrabCrystal += UpdateUICrystal;
 
             _playerColliding.PlayerDamaged += UpdateHpSlider;
+            _inputController.Menu.Open.started += OpenMenu;
         }
 
         private void OnDisable()
         {
+            _inputController.Disable();
             PlayerColliding.GrabCoin -= UpdateUICoin;
             PlayerColliding.GrabCrystal -= UpdateUICrystal;
             _playerColliding.PlayerDamaged -= UpdateHpSlider;
+
+
+            _inputController.Menu.Open.started -= OpenMenu;
         }
 
         private void UpdateUICoin(int coin) => _coinCount.text = coin.ToString();
@@ -59,6 +73,17 @@ namespace CrystalOfTime.Systems.Managers
         private void UpdateHpSlider(float newHPCount)
         {
             _playerHPSlider.value = newHPCount;
+        }
+
+        public void ListenResumeButtinEvent()
+        {
+            _menuIsOpened = !_menuIsOpened;
+        }
+
+        private void OpenMenu(InputAction.CallbackContext callback)
+        {
+            _menuIsOpened = !_menuIsOpened;
+            _executorTrigger.Execute(_menuIsOpened);
         }
     }
 }
