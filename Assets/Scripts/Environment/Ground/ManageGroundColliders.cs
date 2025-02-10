@@ -7,8 +7,8 @@ namespace CrystalOfTime.Systems.Environments
         [SerializeField] private Collider2D _groundCollider;
         [SerializeField] private Transform _groundDownPoint;
 
-        private Transform _playerDownPointTransform;
-        private bool _isInited = false;
+        [SerializeField] private Transform _playerDownPointTransform;
+        [SerializeField] private bool _isInited = false;
 
         public void Init(Transform playerTransform)
         {
@@ -23,7 +23,7 @@ namespace CrystalOfTime.Systems.Environments
         {
             if (_playerDownPointTransform.position.y < _groundDownPoint.position.y)
                 _groundCollider.enabled = false;
-            if (_playerDownPointTransform.position.y > _groundDownPoint.position.y)
+            else if (_playerDownPointTransform.position.y > _groundDownPoint.position.y)
                 _groundCollider.enabled = true;
         }
     }

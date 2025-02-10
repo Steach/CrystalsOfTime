@@ -38,16 +38,15 @@ namespace CrystalOfTime.Systems.Managers
 
         private void CheckCrystalCount(int crystal)
         {
-            _crystalsCount = crystal;
-            if (_crystalsCount >= 3)
+            PortalAnimationController portalController;
+            if (TryGetComponent<PortalAnimationController>(out portalController))
             {
-                var portalController = _portal.GetComponent<PortalAnimationController>();
-                portalController.InitPortal();
-            }
-            else
-            {
-                var portalController = _portal.GetComponent<PortalAnimationController>();
-                portalController.ClosePortal();
+                _crystalsCount = crystal;
+
+                if (_crystalsCount >= 3)
+                    portalController.InitPortal();
+                else
+                    portalController.ClosePortal();
             }
         }
 
