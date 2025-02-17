@@ -4,9 +4,14 @@ namespace CrystalOfTime.NPC.Enemeis
 {
     public class TurtleController : MonoBehaviour
     {
+        [SerializeField] private Collider2D _collider;
+        [Header("Animator")]
         [SerializeField] private EnemyAnimController _enemyAnimController;
         [SerializeField] private float _checkRadius;
         [SerializeField] private LayerMask _layerMask;
+
+        [SerializeField] private float _knockbackForce;
+        [SerializeField] private float _damage;
 
         public delegate void TurtlePlayerDetectionHandler(bool playerInNear);
         public event TurtlePlayerDetectionHandler TurtlePlayerDetectionTrigger;
@@ -24,6 +29,19 @@ namespace CrystalOfTime.NPC.Enemeis
         private void Update()
         {
             CheckPlayerDistance();
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                Rigidbody2D playerRB = collision.gameObject.GetComponent<Rigidbody2D>();
+                Vector2 knockbackDirection = (collision.transform.position - transform.position).normalized;
+                playerRB.AddForce(knockbackDirection * _knockbackForce, ForceMode2D.Impulse);
+
+                var playerColliding = collision.gameObject.GetComponent<PlayerColliding>();
+                playerColliding.PlayerTakeDamage(_damage);
+            }
         }
 
         private void CheckPlayerDistance()

@@ -82,19 +82,24 @@ public class PlayerColliding : MonoBehaviour
         }
         else if (collision.tag == "Enemy")
         {
-            if (PlayerHP > 0)
-            {
-                PlayerHP -= _takedDamage;
-                PlayerDamaged?.Invoke(PlayerHP);
-            }
-            else if (PlayerHP <= 0)
-            {
-                PlayerDeath?.Invoke(true);
-            }
+            PlayerTakeDamage(_takedDamage);
         }
         else if (collision.tag == "Portal")
         {
             PlayerPortalEvent?.Invoke();
+        }
+    }
+
+    public void PlayerTakeDamage(float damage)
+    {
+        if (PlayerHP > 0)
+        {
+            PlayerHP -= damage;
+            PlayerDamaged?.Invoke(PlayerHP);
+        }
+        else if (PlayerHP <= 0)
+        {
+            PlayerDeath?.Invoke(true);
         }
     }
 }

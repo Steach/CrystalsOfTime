@@ -6,6 +6,7 @@ namespace CrystalOfTime.NPC.Enemeis
     public abstract class EnemyAnimController : MonoBehaviour
     {
         [Header("Parent Variables")]
+        [Space]
         [SerializeField] protected Animator _animator;
         [SerializeField] protected AnimatorController _controllerIdle;
         [SerializeField] protected AnimatorController _controllerGetHit;
