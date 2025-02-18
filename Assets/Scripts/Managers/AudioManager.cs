@@ -41,7 +41,8 @@ namespace CrystalOfTime.Systems.SFX
 
         private void PlayCrystalGrabSFX(int crystal)
         {
-            _collactableSFXAudioSource.PlayOneShot(_crystalGrabSFX);
+            if(crystal > 0)
+                _collactableSFXAudioSource.PlayOneShot(_crystalGrabSFX);
         }
     }
 }

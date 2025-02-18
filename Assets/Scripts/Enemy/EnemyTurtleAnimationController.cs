@@ -24,12 +24,12 @@ namespace CrystalOfTime.NPC.Enemeis
         public override void Init(TurtleController turtleController)
         {
             _turtleController = turtleController;
-            _turtleController.TurtlePlayerDetectionTrigger += ChangePlayerDetectionStatus;
+            _turtleController.EnemyPlayerDetectionTrigger += ChangePlayerDetectionStatus;
         }
 
         public override void UnInit(TurtleController turtleController)
         {
-            _turtleController.TurtlePlayerDetectionTrigger -= ChangePlayerDetectionStatus;
+            _turtleController.EnemyPlayerDetectionTrigger -= ChangePlayerDetectionStatus;
         }
 
         private void OnEnable()

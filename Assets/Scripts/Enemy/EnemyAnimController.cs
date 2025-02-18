@@ -14,8 +14,20 @@ namespace CrystalOfTime.NPC.Enemeis
         [SerializeField] protected AnimatorController _controllerDeath;
 
         //public abstract void Init();
-        public abstract void Init(TurtleController turtleController);
-        public abstract void UnInit(TurtleController turtleController);
+        public virtual void Init()
+        { }
+        public virtual void UnInit()
+        { }
+
+        public virtual void Init(TurtleController turtleController)
+        { }
+        public virtual void UnInit(TurtleController turtleController)
+        { }
+
+        public virtual void Init(EnemyBatAnimationController batController)
+        { }
+        public virtual void UnInit(EnemyBatAnimationController batController)
+        { }
 
         protected virtual void ChangeAnimatorController(AnimatorController controller)
         {
