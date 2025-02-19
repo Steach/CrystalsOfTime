@@ -14,14 +14,17 @@ namespace CrystalOfTime.NPC.Enemeis
         [Space]
         [Header("Bools for debug")]
         [SerializeField] private bool _isCellingIn;
-        [SerializeField] private bool _isPlayerIsNear;
 
-        private BatController _controller;
         private bool _isControllerChanging = false;
 
-        private void OnEnable()
+        public override void Init(BatController batController)
         {
-            ChangeAnimatorController(_controllerIdle);
+            base.Init(batController);
+        }
+
+        public override void UnInit(BatController batController)
+        {
+            base.UnInit(batController);
         }
 
         private void Update()
@@ -44,9 +47,7 @@ namespace CrystalOfTime.NPC.Enemeis
                     StartCoroutine(BatIsCellingIn());
                     _isCellingIn = true;
                 }
-                   
             }
-            
         }
 
         private IEnumerator BatIsCellingOut()

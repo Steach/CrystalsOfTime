@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BatController : MonoBehaviour
+namespace CrystalOfTime.NPC.Enemeis
 {
-    // Start is called before the first frame update
-    void Start()
+    public class BatController : EnemiesController
     {
-        
-    }
+        private void OnEnable()
+        {
+            _enemyAnimationController.Init(this);
+            _enemyMovement.Init(this);
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void OnDisable()
+        {
+            _enemyAnimationController.UnInit(this);
+            _enemyMovement.UnInit(this);
+        }
+
+        private void Update()
+        {
+            CheckPlayerDistanceOnCircle();
+        }
     }
 }

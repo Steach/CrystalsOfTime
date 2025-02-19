@@ -13,21 +13,34 @@ namespace CrystalOfTime.NPC.Enemeis
         [SerializeField] protected AnimatorController _controllerMove;
         [SerializeField] protected AnimatorController _controllerDeath;
 
+        [SerializeField] protected bool _isPlayerIsNear;
+
         //public abstract void Init();
-        public virtual void Init()
-        { }
-        public virtual void UnInit()
-        { }
+        public virtual void Init(){ }
+        public virtual void UnInit(){ }
 
         public virtual void Init(TurtleController turtleController)
-        { }
+        {
+            turtleController.EnemyPlayerDetectionTrigger += ChangePlayerDetectionStatus;
+        }
         public virtual void UnInit(TurtleController turtleController)
-        { }
+        {
+            turtleController.EnemyPlayerDetectionTrigger -= ChangePlayerDetectionStatus;
+        }
 
-        public virtual void Init(EnemyBatAnimationController batController)
-        { }
-        public virtual void UnInit(EnemyBatAnimationController batController)
-        { }
+        public virtual void Init(BatController batController)
+        {
+            batController.EnemyPlayerDetectionTrigger += ChangePlayerDetectionStatus;
+        }
+        public virtual void UnInit(BatController batController)
+        {
+            batController.EnemyPlayerDetectionTrigger -= ChangePlayerDetectionStatus;
+        }
+
+        protected void ChangePlayerDetectionStatus(bool isNear)
+        {
+            _isPlayerIsNear = isNear;
+        }
 
         protected virtual void ChangeAnimatorController(AnimatorController controller)
         {

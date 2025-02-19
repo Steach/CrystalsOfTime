@@ -16,20 +16,19 @@ namespace CrystalOfTime.NPC.Enemeis
         [Space]
         [Header("Bools for Debug")]
         [SerializeField] private bool _isSpikesIn = true;
-        [SerializeField] private bool _playerIsNear = false;
+        //[SerializeField] private bool _playerIsNear = false;
 
         private TurtleController _turtleController;
         private bool _isControllerChanging = false;
 
         public override void Init(TurtleController turtleController)
         {
-            _turtleController = turtleController;
-            _turtleController.EnemyPlayerDetectionTrigger += ChangePlayerDetectionStatus;
+            base.Init(turtleController);
         }
 
         public override void UnInit(TurtleController turtleController)
         {
-            _turtleController.EnemyPlayerDetectionTrigger -= ChangePlayerDetectionStatus;
+            base.UnInit(turtleController);
         }
 
         private void OnEnable()
@@ -52,18 +51,18 @@ namespace CrystalOfTime.NPC.Enemeis
                     ChangeAnimatorController(_controllerIdleSpikesOut);
             }
 
-            if (_playerIsNear && _isSpikesIn)
+            if (_isPlayerIsNear && _isSpikesIn)
             {
                 StartCoroutine(SpikesOut());
             }
-            else if (!_playerIsNear && !_isSpikesIn)
+            else if (!_isPlayerIsNear && !_isSpikesIn)
             {
                 StartCoroutine(SpikesIn());
             }
         }
 
-        private void ChangePlayerDetectionStatus(bool isNear)
-        { _playerIsNear = isNear; }
+        //private void ChangePlayerDetectionStatusOLD(bool isNear)
+        //{ _playerIsNear = isNear; }
 
         private IEnumerator SpikesOut()
         {

@@ -6,18 +6,18 @@ namespace CrystalOfTime.NPC.Enemeis
     {
         [SerializeField] private Collider2D _collider;
         [Header("Animator")]
-        [SerializeField] private EnemyAnimController _enemyAnimController;
+        //[SerializeField] private EnemyAnimController _enemyAnimController;
 
         [SerializeField] private float _knockbackForce;
 
         private void OnEnable()
         {
-            _enemyAnimController.Init(this);
+            _enemyAnimationController.Init(this);
         }
 
         private void OnDisable()
         {
-            _enemyAnimController.UnInit(this);
+            _enemyAnimationController.UnInit(this);
         }
 
         private void Update()

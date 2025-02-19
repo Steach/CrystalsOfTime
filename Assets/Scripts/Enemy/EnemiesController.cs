@@ -4,21 +4,30 @@ namespace CrystalOfTime.NPC.Enemeis
 {
     public abstract class EnemiesController : MonoBehaviour
     {
+        [Space]
+        [SerializeField] protected EnemyAnimController _enemyAnimationController;
+        [SerializeField] protected EnemyMovement _enemyMovement;
         [SerializeField] protected float _checkRadius;
-        [SerializeField] protected LayerMask _layerMask;
+        [SerializeField] protected LayerMask _playerLayerMask;
         [SerializeField] protected float _damage;
 
         public delegate void EnemyPlayerDetectionHandler(bool playerInNear);
         public event EnemyPlayerDetectionHandler EnemyPlayerDetectionTrigger;
 
+        public delegate void EnemyGetPlayerTransformHandler(Transform playerTransform);
+        public event EnemyGetPlayerTransformHandler EnemyGetPlayerTransformTrigger;
+
         protected void CheckPlayerDistanceOnCircle()
         {
-            RaycastHit2D hit = Physics2D.CircleCast(transform.position, _checkRadius, Vector3.zero, 0f, _layerMask);
+            RaycastHit2D hit = Physics2D.CircleCast(transform.position, _checkRadius, Vector3.zero, 0f, _playerLayerMask);
 
             if (hit.collider != null)
             {
                 if (hit.collider.tag == "Player")
+                {
                     EnemyPlayerDetectionTrigger?.Invoke(true);
+                    EnemyGetPlayerTransformTrigger?.Invoke(hit.collider.transform);
+                }
                 else
                     EnemyPlayerDetectionTrigger?.Invoke(false);
             }
