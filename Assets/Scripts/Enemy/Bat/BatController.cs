@@ -6,13 +6,13 @@ namespace CrystalOfTime.NPC.Enemeis
     {
         private void OnEnable()
         {
-            _enemyAnimationController.Init(this);
+            _enemyAnimationController.Init(this, _enemyMovement);
             _enemyMovement.Init(this);
         }
 
         private void OnDisable()
         {
-            _enemyAnimationController.UnInit(this);
+            _enemyAnimationController.UnInit(this, _enemyMovement);
             _enemyMovement.UnInit(this);
         }
 

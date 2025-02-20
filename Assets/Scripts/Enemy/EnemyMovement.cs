@@ -4,6 +4,8 @@ namespace CrystalOfTime.NPC.Enemeis
 {
     public class EnemyMovement : MonoBehaviour
     {
+        public bool BatIsCelling { get; private set; }
+
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private float _moveSpeed;
         [SerializeField] private LayerMask _checkedLayerMask;
@@ -14,6 +16,7 @@ namespace CrystalOfTime.NPC.Enemeis
         [Space]
         [Header("Bat movement")]
         [SerializeField] private Transform _startTransform;
+        [SerializeField] private Rigidbody2D _rb;
         [Space]
         [Header("Type of Enemy:")]
         [SerializeField] private bool _isGhost;
@@ -23,6 +26,7 @@ namespace CrystalOfTime.NPC.Enemeis
         private Vector2 _rayDirection;
         private float _rayDistance = 5f;
         private bool _playerInTarget = false;
+
 
         public void Init(EnemiesController controller)
         {
@@ -97,19 +101,25 @@ namespace CrystalOfTime.NPC.Enemeis
 
         private void BatMovement()
         {
+            if (transform.position.x == _startTransform.position.x && transform.position.y == _startTransform.position.y)
+                BatIsCelling = true;
+            else
+                BatIsCelling = false;
+
             if (!_playerInTarget)
                 _target = _startTransform.position;
 
             Vector2 direction = (_target - transform.position).normalized;
             RaycastHit2D hit = Physics2D.CircleCast(transform.position, 1, Vector3.zero, 0f, _checkedLayerMask);
 
+            
             if (hit.collider != null)
             {
-                // якщо перед ворогом перешкода, зм≥нюЇмо напр€мок
-                direction = Vector2.Perpendicular(direction); // ѕоворот на 90 градус≥в
+                direction = Vector2.Perpendicular(direction);
             }
 
-            transform.position += (Vector3)direction * _moveSpeed * Time.deltaTime;
+            if(_playerInTarget || !BatIsCelling)
+                transform.position += (Vector3)direction * _moveSpeed * Time.deltaTime;
         }
 
         private void ChangePlayerDetectionStatus(bool isNear) => _playerInTarget = isNear;

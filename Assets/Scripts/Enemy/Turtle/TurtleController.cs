@@ -5,8 +5,6 @@ namespace CrystalOfTime.NPC.Enemeis
     public class TurtleController : EnemiesController
     {
         [SerializeField] private Collider2D _collider;
-        [Header("Animator")]
-        //[SerializeField] private EnemyAnimController _enemyAnimController;
 
         [SerializeField] private float _knockbackForce;
 

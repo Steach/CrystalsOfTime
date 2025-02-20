@@ -15,16 +15,19 @@ namespace CrystalOfTime.NPC.Enemeis
         [Header("Bools for debug")]
         [SerializeField] private bool _isCellingIn;
 
+        private EnemyMovement _enemyMovement;
+
         private bool _isControllerChanging = false;
 
-        public override void Init(BatController batController)
+        public override void Init(BatController batController, EnemyMovement enemyMovement)
         {
-            base.Init(batController);
+            base.Init(batController, enemyMovement);
+            _enemyMovement = enemyMovement;
         }
 
-        public override void UnInit(BatController batController)
+        public override void UnInit(BatController batController, EnemyMovement enemyMovement)
         {
-            base.UnInit(batController);
+            base.UnInit(batController, enemyMovement);
         }
 
         private void Update()
@@ -34,18 +37,26 @@ namespace CrystalOfTime.NPC.Enemeis
 
         private void ChangingAnimation()
         {
+            _isCellingIn = _enemyMovement.BatIsCelling;
+
             if (!_isControllerChanging)
             {
                 if (_isPlayerIsNear && _isCellingIn)
                 {
                     StartCoroutine(BatIsCellingOut());
-                    _isCellingIn = false;
 
+                }
+                else if (!_isPlayerIsNear && _isCellingIn)
+                {
+                    StartCoroutine(BatIsCellingIn());
                 }
                 else if (!_isPlayerIsNear && !_isCellingIn)
                 {
-                    StartCoroutine(BatIsCellingIn());
-                    _isCellingIn = true;
+                    ChangeAnimatorController(_controllerMove);
+                }
+                else if (_isPlayerIsNear && !_isCellingIn)
+                {
+                    ChangeAnimatorController(_controllerMove);
                 }
             }
         }
