@@ -4,7 +4,7 @@ namespace CrystalOfTime.NPC.Enemeis
 {
     public class EnemyMovement : MonoBehaviour
     {
-        public bool BatIsCelling { get; private set; }
+        public bool BatIsInStartPoint { get; private set; }
 
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private float _moveSpeed;
@@ -26,6 +26,7 @@ namespace CrystalOfTime.NPC.Enemeis
         private Vector2 _rayDirection;
         private float _rayDistance = 5f;
         private bool _playerInTarget = false;
+        private bool _canMove = false;
 
 
         public void Init(EnemiesController controller)
@@ -102,9 +103,9 @@ namespace CrystalOfTime.NPC.Enemeis
         private void BatMovement()
         {
             if (transform.position.x == _startTransform.position.x && transform.position.y == _startTransform.position.y)
-                BatIsCelling = true;
+                BatIsInStartPoint = true;
             else
-                BatIsCelling = false;
+                BatIsInStartPoint = false;
 
             if (!_playerInTarget)
                 _target = _startTransform.position;
@@ -118,9 +119,16 @@ namespace CrystalOfTime.NPC.Enemeis
                 direction = Vector2.Perpendicular(direction);
             }
 
-            if(_playerInTarget || !BatIsCelling)
+            if ((_playerInTarget && _canMove) || (!BatIsInStartPoint && _canMove) || (_playerInTarget && _canMove && !BatIsInStartPoint))
                 transform.position += (Vector3)direction * _moveSpeed * Time.deltaTime;
+
+            SpriteFlipper(transform.position, _target);
         }
+
+        public void ChangeIsCellingInStatus(bool isCellingIn)
+        {
+            _canMove = isCellingIn;
+        } 
 
         private void ChangePlayerDetectionStatus(bool isNear) => _playerInTarget = isNear;
         private void ChangeTargetTransform(Transform playerTransform) => _target = playerTransform.position;

@@ -5,6 +5,9 @@ namespace CrystalOfTime.NPC.Enemeis
 {
     public abstract class EnemyAnimController : MonoBehaviour
     {
+        public delegate void BatIsCellingInHandler(bool isCellingIn);
+        public virtual event BatIsCellingInHandler BatIsCellingInTrigger;
+
         [Header("Parent Variables")]
         [Space]
         [SerializeField] protected Animator _animator;

@@ -8,17 +8,24 @@ namespace CrystalOfTime.NPC.Enemeis
         {
             _enemyAnimationController.Init(this, _enemyMovement);
             _enemyMovement.Init(this);
+            _enemyAnimationController.BatIsCellingInTrigger += ChangeMovementStatus;
         }
 
         private void OnDisable()
         {
             _enemyAnimationController.UnInit(this, _enemyMovement);
             _enemyMovement.UnInit(this);
+            _enemyAnimationController.BatIsCellingInTrigger -= ChangeMovementStatus;
         }
 
         private void Update()
         {
             CheckPlayerDistanceOnCircle();
+        }
+
+        private void ChangeMovementStatus(bool canMove)
+        {
+            _enemyMovement.ChangeIsCellingInStatus(canMove);
         }
     }
 }
