@@ -22,7 +22,8 @@ namespace CrystalOfTime.NPC.Enemeis
         [SerializeField] private bool _isGhost;
         [SerializeField] private bool _isBat;
 
-        private Vector3 _target;
+        private Vector3 _targetPosition;
+        private Vector3 _targetForFlip;
         private Vector2 _rayDirection;
         private float _rayDistance = 5f;
         private bool _playerInTarget = false;
@@ -45,8 +46,8 @@ namespace CrystalOfTime.NPC.Enemeis
         {
             if (_isGhost)
             {
-                _target = _pointLeft.position;
-                SpriteFlipper(transform.position, _target);
+                _targetPosition = _pointLeft.position;
+                SpriteFlipper(transform.position, _targetForFlip);
             }
         }
 
@@ -62,14 +63,14 @@ namespace CrystalOfTime.NPC.Enemeis
         //--------------------GHOST------------------------------------/
         private void GhostMovement()
         {
-            transform.position = Vector3.MoveTowards(transform.position, _target, _moveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _moveSpeed * Time.deltaTime);
 
             CheckTarget();
 
-            if (Vector3.Distance(transform.position, _target) < 0.1f && !_playerInTarget)
+            if (Vector3.Distance(transform.position, _targetPosition) < 0.1f && !_playerInTarget)
             {
-                _target = _target == _pointLeft.position ? _pointRight.position : _pointLeft.position;
-                SpriteFlipper(transform.position, _target);
+                _targetPosition = _targetPosition == _pointLeft.position ? _pointRight.position : _pointLeft.position;
+                SpriteFlipper(transform.position, _targetPosition);
             }
         }
 
@@ -89,7 +90,7 @@ namespace CrystalOfTime.NPC.Enemeis
 
             if (hit.collider != null)
             {
-                _target = hit.collider.transform.position;
+                _targetPosition = hit.collider.transform.position;
                 _playerInTarget = true;
             }
             else
@@ -108,9 +109,12 @@ namespace CrystalOfTime.NPC.Enemeis
                 BatIsInStartPoint = false;
 
             if (!_playerInTarget)
-                _target = _startTransform.position;
+            {
+                _targetPosition = _startTransform.position;
+                _targetForFlip = _startTransform.position;
+            }
 
-            Vector2 direction = (_target - transform.position).normalized;
+            Vector2 direction = (_targetPosition - transform.position).normalized;
             RaycastHit2D hit = Physics2D.CircleCast(transform.position, 1, Vector3.zero, 0f, _checkedLayerMask);
 
             
@@ -122,7 +126,7 @@ namespace CrystalOfTime.NPC.Enemeis
             if ((_playerInTarget && _canMove) || (!BatIsInStartPoint && _canMove) || (_playerInTarget && _canMove && !BatIsInStartPoint))
                 transform.position += (Vector3)direction * _moveSpeed * Time.deltaTime;
 
-            SpriteFlipper(transform.position, _target);
+            SpriteFlipper(transform.position, _targetPosition);
         }
 
         public void ChangeIsCellingInStatus(bool isCellingIn)
@@ -131,6 +135,11 @@ namespace CrystalOfTime.NPC.Enemeis
         } 
 
         private void ChangePlayerDetectionStatus(bool isNear) => _playerInTarget = isNear;
-        private void ChangeTargetTransform(Transform playerTransform) => _target = playerTransform.position;
+        private void ChangeTargetTransform(Transform playerTransform)
+        {
+            _targetForFlip = playerTransform.position;
+            Vector2 direction = (playerTransform.position - transform.position).normalized;
+            _targetPosition = (Vector2)playerTransform.position - direction * 1;
+        }
     }
 }
