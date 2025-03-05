@@ -22,6 +22,7 @@ namespace CrystalOfTime.NPC.Enemeis
         [SerializeField] private bool _isGhost;
         [SerializeField] private bool _isBat;
 
+        private float _distanceForAttake = 1;
         private Vector3 _targetPosition;
         private Vector3 _targetForFlip;
         private Vector2 _rayDirection;
@@ -108,6 +109,13 @@ namespace CrystalOfTime.NPC.Enemeis
             else
                 BatIsInStartPoint = false;
 
+
+                
+            var distance = Vector2.Distance(transform.position, _targetForFlip);
+            if(distance <= _distanceForAttake && _playerInTarget)
+                Debug.Log(distance);
+
+
             if (!_playerInTarget)
             {
                 _targetPosition = _startTransform.position;
@@ -139,7 +147,7 @@ namespace CrystalOfTime.NPC.Enemeis
         {
             _targetForFlip = playerTransform.position;
             Vector2 direction = (playerTransform.position - transform.position).normalized;
-            _targetPosition = (Vector2)playerTransform.position - direction * 1;
+            _targetPosition = (Vector2)playerTransform.position - direction * _distanceForAttake;
         }
     }
 }
