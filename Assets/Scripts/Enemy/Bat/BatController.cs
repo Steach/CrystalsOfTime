@@ -9,6 +9,7 @@ namespace CrystalOfTime.NPC.Enemeis
             _enemyAnimationController.Init(this, _enemyMovement);
             _enemyMovement.Init(this);
             _enemyAnimationController.BatIsCellingInTrigger += ChangeMovementStatus;
+            _enemySpellCaster.Init(_enemyMovement);
         }
 
         private void OnDisable()
@@ -16,6 +17,7 @@ namespace CrystalOfTime.NPC.Enemeis
             _enemyAnimationController.UnInit(this, _enemyMovement);
             _enemyMovement.UnInit(this);
             _enemyAnimationController.BatIsCellingInTrigger -= ChangeMovementStatus;
+            _enemySpellCaster.UnInit(_enemyMovement);
         }
 
         private void Update()

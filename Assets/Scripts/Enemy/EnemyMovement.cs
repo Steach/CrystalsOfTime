@@ -4,6 +4,8 @@ namespace CrystalOfTime.NPC.Enemeis
 {
     public class EnemyMovement : MonoBehaviour
     {
+        public delegate void DistanceForSpellCastingHandler(Transform spellSpawnTransform, Transform target);
+        public event DistanceForSpellCastingHandler DistanceForSpellCastingTrigger;
         public bool BatIsInStartPoint { get; private set; }
 
         [SerializeField] private SpriteRenderer _spriteRenderer;
@@ -22,9 +24,9 @@ namespace CrystalOfTime.NPC.Enemeis
         [SerializeField] private bool _isGhost;
         [SerializeField] private bool _isBat;
 
-        private float _distanceForAttake = 1;
+        private float _distanceForAttake = 3;
         private Vector3 _targetPosition;
-        private Vector3 _targetForFlip;
+        private Transform _targetForFlip;
         private Vector2 _rayDirection;
         private float _rayDistance = 5f;
         private bool _playerInTarget = false;
@@ -48,7 +50,7 @@ namespace CrystalOfTime.NPC.Enemeis
             if (_isGhost)
             {
                 _targetPosition = _pointLeft.position;
-                SpriteFlipper(transform.position, _targetForFlip);
+                SpriteFlipper(transform.position, _targetForFlip.position);
             }
         }
 
@@ -104,6 +106,13 @@ namespace CrystalOfTime.NPC.Enemeis
 
         private void BatMovement()
         {
+            if (!_playerInTarget)
+            {
+                _targetPosition = _startTransform.position;
+                _targetForFlip = _startTransform;
+                _targetForFlip.position = _startTransform.position;
+            }
+
             if (transform.position.x == _startTransform.position.x && transform.position.y == _startTransform.position.y)
                 BatIsInStartPoint = true;
             else
@@ -111,16 +120,10 @@ namespace CrystalOfTime.NPC.Enemeis
 
 
                 
-            var distance = Vector2.Distance(transform.position, _targetForFlip);
-            if(distance <= _distanceForAttake && _playerInTarget)
-                Debug.Log(distance);
+            var distance = Vector2.Distance(transform.position, _targetForFlip.position);
+            if (distance <= _distanceForAttake && _playerInTarget)
+                DistanceForSpellCastingTrigger?.Invoke(transform, _targetForFlip);
 
-
-            if (!_playerInTarget)
-            {
-                _targetPosition = _startTransform.position;
-                _targetForFlip = _startTransform.position;
-            }
 
             Vector2 direction = (_targetPosition - transform.position).normalized;
             RaycastHit2D hit = Physics2D.CircleCast(transform.position, 1, Vector3.zero, 0f, _checkedLayerMask);
@@ -145,7 +148,7 @@ namespace CrystalOfTime.NPC.Enemeis
         private void ChangePlayerDetectionStatus(bool isNear) => _playerInTarget = isNear;
         private void ChangeTargetTransform(Transform playerTransform)
         {
-            _targetForFlip = playerTransform.position;
+            _targetForFlip = playerTransform;
             Vector2 direction = (playerTransform.position - transform.position).normalized;
             _targetPosition = (Vector2)playerTransform.position - direction * _distanceForAttake;
         }

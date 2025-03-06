@@ -1,3 +1,4 @@
+using CrystalOfTime.NPC.Enemeis.Spells;
 using UnityEngine;
 
 namespace CrystalOfTime.NPC.Enemeis
@@ -7,6 +8,7 @@ namespace CrystalOfTime.NPC.Enemeis
         [Space]
         [SerializeField] protected EnemyAnimController _enemyAnimationController;
         [SerializeField] protected EnemyMovement _enemyMovement;
+        [SerializeField] protected EnemiesSpellCaster _enemySpellCaster;
         [SerializeField] protected float _checkRadius;
         [SerializeField] protected LayerMask _playerLayerMask;
         [SerializeField] protected float _damage;
