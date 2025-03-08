@@ -38,15 +38,16 @@ namespace CrystalOfTime.Systems.Managers
 
         private void CheckCrystalCount(int crystal)
         {
-            PortalAnimationController portalController;
-            if (TryGetComponent<PortalAnimationController>(out portalController))
+            Debug.Log("Crystal grab event");
+            if (_portal.TryGetComponent<PortalAnimationController>(out PortalAnimationController portalController))
             {
-                _crystalsCount = crystal;
+                Debug.Log("Get portal component");
+                var currentScene = SceneManager.GetActiveScene().buildIndex;
 
-                if (_crystalsCount >= 3)
-                    portalController.InitPortal();
-                else
-                    portalController.ClosePortal();
+                if (currentScene == 0)
+                    ManagePortal(portalController, (int)CrystalCount.FirstLevel, crystal);
+                if (currentScene == 1)
+                    ManagePortal(portalController, (int)CrystalCount.SecondLevel, crystal);
             }
         }
 
@@ -54,13 +55,37 @@ namespace CrystalOfTime.Systems.Managers
         {
             var currentScene = SceneManager.GetActiveScene().buildIndex;
 
-            if (currentScene == 0)
-                SceneManager.LoadScene(1);
-            else if(currentScene == 1)
-                SceneManager.LoadScene(2);
+            if (CheckNextScene(currentScene))
+                SceneManager.LoadScene(currentScene + 1);
+            else
+                Debug.Log("Game is complete!");
+                
+        }
+
+        private bool CheckNextScene(int sceneIndex)
+        {
+            Debug.Log($"Scene index: {sceneIndex}");
+            Debug.Log($"Count scene in manager: {SceneManager.sceneCountInBuildSettings}");
+            return sceneIndex >= 0 && sceneIndex < SceneManager.sceneCountInBuildSettings - 1;
+        }
+
+        private void ManagePortal(PortalAnimationController portalController, int neededCount, int currentCount)
+        {
+            Debug.Log($"neededCount: {neededCount}, currentCount: {currentCount}");
+
+            if (currentCount >= neededCount)
+                portalController.InitPortal();
+            else
+                portalController.ClosePortal();
         }
 
         public GameObject GetPlayer()
         { return _player; }
+
+        public enum CrystalCount
+        {
+            FirstLevel = 3,
+            SecondLevel = 5
+        }
     }
 }
