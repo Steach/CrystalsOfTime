@@ -1,0 +1,259 @@
+fileFormatVersion: 2
+guid: 7c27d954dbf0fdb438bcbb119ec12f8a
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PoisonBolt_19
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 1073
+        width: 266
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c9b86ce6e50541439d49919192a0a76
+      internalID: 1098155671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PoisonBolt_21
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 1077
+        width: 270
+        height: 181
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16bfeeb565387564e906972d5b6ff8b7
+      internalID: 629544792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PoisonBolt_22
+      rect:
+        serializedVersion: 2
+        x: 1312
+        y: 1095
+        width: 346
+        height: 181
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f27b1617d55cd2499db7abdb340ed15
+      internalID: 1502961802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PoisonBolt_23
+      rect:
+        serializedVersion: 2
+        x: 1682
+        y: 1096
+        width: 324
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da7aad3c1a85d4e4fbcf811dcca7f16e
+      internalID: 1334000711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      PoisonBolt_0: -2131223583
+      PoisonBolt_1: 1296039911
+      PoisonBolt_10: -378453384
+      PoisonBolt_11: -794479079
+      PoisonBolt_12: 409608136
+      PoisonBolt_13: 1113229788
+      PoisonBolt_14: -1344745949
+      PoisonBolt_15: 204472066
+      PoisonBolt_16: 957214877
+      PoisonBolt_17: -274763536
+      PoisonBolt_18: -211330432
+      PoisonBolt_19: 1098155671
+      PoisonBolt_2: -234339126
+      PoisonBolt_20: -159876120
+      PoisonBolt_21: 629544792
+      PoisonBolt_22: 1502961802
+      PoisonBolt_23: 1334000711
+      PoisonBolt_24: 491491548
+      PoisonBolt_25: 1764979861
+      PoisonBolt_26: -2095454661
+      PoisonBolt_27: -1878337837
+      PoisonBolt_28: -1801390699
+      PoisonBolt_29: -1147261562
+      PoisonBolt_3: -1198583207
+      PoisonBolt_30: 1871649516
+      PoisonBolt_31: 781942712
+      PoisonBolt_32: 362420426
+      PoisonBolt_33: -1190110333
+      PoisonBolt_34: -429267462
+      PoisonBolt_35: -409575898
+      PoisonBolt_36: -1961489604
+      PoisonBolt_37: 1021768747
+      PoisonBolt_38: -1870773315
+      PoisonBolt_39: -550919675
+      PoisonBolt_4: -1397954484
+      PoisonBolt_40: -1332817212
+      PoisonBolt_41: -1879549787
+      PoisonBolt_42: -386085978
+      PoisonBolt_43: -108961549
+      PoisonBolt_44: -1444961022
+      PoisonBolt_45: 702078484
+      PoisonBolt_46: 977546983
+      PoisonBolt_47: 686448715
+      PoisonBolt_5: -2112656274
+      PoisonBolt_6: 1575249858
+      PoisonBolt_7: -949340213
+      PoisonBolt_8: -157417981
+      PoisonBolt_9: -897551901
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace CrystalOfTime.NPC.Enemeis.Spells
@@ -6,6 +8,10 @@ namespace CrystalOfTime.NPC.Enemeis.Spells
     {
         [SerializeField] private float _speed;
         [SerializeField] private Transform _targetTransform;
+        [SerializeField] private SpellAnimationController _animatorController;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
+
+        private bool _isHit = false;
 
         public void Init(Transform targetTransform)
         {
@@ -15,7 +21,7 @@ namespace CrystalOfTime.NPC.Enemeis.Spells
 
         private void Update()
         {
-            if(_targetTransform != null)
+            if(_targetTransform != null && !_isHit)
                 MoveToTarget();
         }
 
@@ -23,14 +29,23 @@ namespace CrystalOfTime.NPC.Enemeis.Spells
         {
             var direction = (_targetTransform.position - transform.position).normalized;
             transform.position += (Vector3)direction * _speed * Time.deltaTime;
+            if (transform.position.x < _targetTransform.position.x)
+                _spriteRenderer.flipX = false;
+            else
+                _spriteRenderer.flipX = true;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Player"))
             {
-                Debug.Log("Player");
-                Destroy(gameObject);
+                _isHit = true;
+                _animatorController.ChangeHitTrigger();
+
+                if (collision.gameObject.TryGetComponent<PlayerColliding>(out PlayerColliding playerColliding))
+                    playerColliding.PlayerTakeDamage(20);
+
+                Destroy(gameObject, 1);
             }    
         }
     }
