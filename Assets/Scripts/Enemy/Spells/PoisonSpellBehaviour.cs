@@ -35,7 +35,7 @@ namespace CrystalOfTime.NPC.Enemeis.Spells
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Player"))
+            if (collision.CompareTag("Player") && !_isHit)
             {
                 _isHit = true;
                 _animatorController.ChangeHitTrigger();

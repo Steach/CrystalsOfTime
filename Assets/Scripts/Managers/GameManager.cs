@@ -15,8 +15,6 @@ namespace CrystalOfTime.Systems.Managers
 
         private PlayerColliding _playerColliding;
 
-        private float _crystalsCount;
-
         private void Awake()
         {
             foreach (var ground in _groundsColliders)
@@ -64,14 +62,14 @@ namespace CrystalOfTime.Systems.Managers
 
         private bool CheckNextScene(int sceneIndex)
         {
-            Debug.Log($"Scene index: {sceneIndex}");
-            Debug.Log($"Count scene in manager: {SceneManager.sceneCountInBuildSettings}");
+            //Debug.Log($"Scene index: {sceneIndex}");
+            //Debug.Log($"Count scene in manager: {SceneManager.sceneCountInBuildSettings}");
             return sceneIndex >= 0 && sceneIndex < SceneManager.sceneCountInBuildSettings - 1;
         }
 
         private void ManagePortal(PortalAnimationController portalController, int neededCount, int currentCount)
         {
-            Debug.Log($"neededCount: {neededCount}, currentCount: {currentCount}");
+            //Debug.Log($"neededCount: {neededCount}, currentCount: {currentCount}");
 
             if (currentCount >= neededCount)
                 portalController.InitPortal();

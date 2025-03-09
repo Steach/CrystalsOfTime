@@ -154,14 +154,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5433b2c2831683846865ba69010da1c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collider: {fileID: 9049783096966102063}
-  _enemyAnimController: {fileID: 3226872418844869472}
+  _enemyAnimationController: {fileID: 3226872418844869472}
+  _enemyMovement: {fileID: 0}
+  _enemySpellCaster: {fileID: 0}
   _checkRadius: 5
-  _layerMask:
+  _playerLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  _knockbackForce: 7
   _damage: 23
+  _collider: {fileID: 9049783096966102063}
+  _knockbackForce: 7
 --- !u!114 &3226872418844869472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,11 +181,11 @@ MonoBehaviour:
   _controllerGetHit: {fileID: 0}
   _controllerMove: {fileID: 0}
   _controllerDeath: {fileID: 0}
+  _isPlayerIsNear: 0
   _controllerIdleSpikesOut: {fileID: 9100000, guid: e0af68fe297f17e41b0f22b2ab647e63, type: 2}
   _controllerSpikesOut: {fileID: 9100000, guid: ab11edd99d64fae4b8bc1d02840fb04e, type: 2}
   _controllerSpikesIn: {fileID: 9100000, guid: ad9b17da4a337e14a9ae2f82db136c24, type: 2}
   _isSpikesIn: 0
-  _playerIsNear: 0
 --- !u!68 &9049783096966102063
 EdgeCollider2D:
   m_ObjectHideFlags: 0

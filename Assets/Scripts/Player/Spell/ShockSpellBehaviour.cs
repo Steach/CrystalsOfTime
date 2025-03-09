@@ -38,6 +38,7 @@ namespace CrystalOfTime.Player.Spells
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            //Debug.Log($"Tag: {collision.tag}");
             if (CheckCollisionTag(collision.tag))
             {
                 if (collision.gameObject.TryGetComponent<EnemyController>(out EnemyController enemyController))

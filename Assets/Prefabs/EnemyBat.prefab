@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 4876569531001136390}
   - component: {fileID: 6500937805065906048}
   - component: {fileID: 3074715698265439525}
+  - component: {fileID: 1007267045005287938}
   m_Layer: 0
   m_Name: EnemyBat
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,6 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyAnimationController: {fileID: 5815966051976895519}
   _enemyMovement: {fileID: 4876569531001136390}
+  _enemySpellCaster: {fileID: 1007267045005287938}
   _checkRadius: 7
   _playerLayerMask:
     serializedVersion: 2
@@ -133,7 +135,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -148,7 +150,7 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515613114514161256}
   m_BodyType: 0
-  m_Simulated: 0
+  m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
@@ -165,7 +167,20 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
+--- !u!114 &1007267045005287938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515613114514161256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 745cf1f1873447d42881df207e4f4114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 3416485899041972229, guid: 853a51cff5371964ba869d6fd099e699, type: 3}
 --- !u!1 &8177511927547609613
 GameObject:
   m_ObjectHideFlags: 0
