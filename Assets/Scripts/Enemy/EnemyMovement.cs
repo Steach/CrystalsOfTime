@@ -50,7 +50,11 @@ namespace CrystalOfTime.NPC.Enemeis
             if (_isGhost)
             {
                 _targetPosition = _pointLeft.position;
-                SpriteFlipper(transform.position, _targetForFlip.position);
+                _targetForFlip = _pointLeft;
+                var targetForFlipPosition = _targetForFlip.position;
+                
+                SpriteFlipper(transform.position, targetForFlipPosition);
+                
             }
         }
 
