@@ -15,7 +15,11 @@ namespace CrystalOfTime.Systems.Managers
         [SerializeField] private TextMeshProUGUI _crystalCount;
         [SerializeField] private TextMeshProUGUI _coinCount;
         [SerializeField] private Slider _playerHPSlider;
-        [SerializeField] private ExecutorTrigger _executorTrigger;
+        [SerializeField] private ExecutorTrigger _executorTriggerOpenMenu;
+        [SerializeField] private ExecutorBase _executorBaseOnStart;
+        [SerializeField] private ExecutorBase _executorBaseOnDeath;
+
+        private bool _playerDeath = false;
 
         private PlayerColliding _playerColliding;
         private float _maxHPValue;
@@ -26,6 +30,7 @@ namespace CrystalOfTime.Systems.Managers
         private void Start()
         {
             ConfigureHPSlider();
+            _executorBaseOnStart.Execute();
         }
 
         private void OnEnable()
@@ -73,6 +78,12 @@ namespace CrystalOfTime.Systems.Managers
         private void UpdateHpSlider(float newHPCount)
         {
             _playerHPSlider.value = newHPCount;
+
+            if (newHPCount <= 0)
+            {
+                _executorBaseOnDeath.Execute();
+                _playerDeath = true;
+            }
         }
 
         public void ListenResumeButtinEvent()
@@ -82,8 +93,11 @@ namespace CrystalOfTime.Systems.Managers
 
         private void OpenMenu(InputAction.CallbackContext callback)
         {
-            _menuIsOpened = !_menuIsOpened;
-            _executorTrigger.Execute(_menuIsOpened);
+            if (!_playerDeath)
+            {
+                _menuIsOpened = !_menuIsOpened;
+                _executorTriggerOpenMenu.Execute(_menuIsOpened);
+            }
         }
     }
 }

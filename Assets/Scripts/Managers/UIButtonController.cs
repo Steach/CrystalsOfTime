@@ -16,6 +16,11 @@ namespace CrystalOfTime.Systems.Managers.UI
         [Space]
         [Header("Settings Buttons")]
         [SerializeField] private Button _returnButton;
+        [Space]
+        [Header("DeathScreen Buttons")]
+        [SerializeField] private Button _restartButtonDeath;
+        [SerializeField] private Button _exitButtonDeath;
+
 
         public delegate void ResumeSuttonHandler();
         public event ResumeSuttonHandler ResumeButtonClickEvent;
@@ -25,6 +30,8 @@ namespace CrystalOfTime.Systems.Managers.UI
         private ExecutorBase _resumeExecutor;
         private ExecutorBase _exitExecutor;
         private ExecutorBase _returnExecutor;
+        private ExecutorBase _restartDeathExecutor;
+        private ExecutorBase _exitDeathExecutor;
 
         private void OnEnable()
         {
@@ -33,12 +40,16 @@ namespace CrystalOfTime.Systems.Managers.UI
             _exitExecutor = GetExecutor(_exitButton);
             _settingsExecutor = GetExecutor(_settingsButton);
             _returnExecutor = GetExecutor(_returnButton);
+            _restartDeathExecutor = GetExecutor(_restartButtonDeath);
+            _exitDeathExecutor = GetExecutor(_exitButtonDeath);
 
             _resumeButton.onClick.AddListener(ExecuteResume);
             _restartButton.onClick.AddListener(ExecuteRestart);
             _settingsButton.onClick.AddListener(ExecuteSettings);
             _exitButton.onClick.AddListener(ExecuteExit);
             _returnButton.onClick.AddListener(ReturnExecutor);
+            _restartButtonDeath.onClick.AddListener(RestartDeathScreenExecutor);
+            _exitButtonDeath.onClick.AddListener(ExitDeathScreenExecutor);
 
 
             ResumeButtonClickEvent += _UIManager.ListenResumeButtinEvent;
@@ -51,6 +62,8 @@ namespace CrystalOfTime.Systems.Managers.UI
             _settingsButton.onClick.RemoveListener(ExecuteSettings);
             _exitButton.onClick.RemoveListener(ExecuteExit);
             _returnButton.onClick.RemoveListener(ReturnExecutor);
+            _restartButtonDeath.onClick.RemoveListener(RestartDeathScreenExecutor);
+            _exitButtonDeath.onClick.RemoveListener(ExitDeathScreenExecutor);
 
             ResumeButtonClickEvent -= _UIManager.ListenResumeButtinEvent;
         }
@@ -67,5 +80,8 @@ namespace CrystalOfTime.Systems.Managers.UI
         private void ExecuteSettings() => _settingsExecutor.Execute();
         private void ExecuteExit() => _exitExecutor.Execute();
         private void ReturnExecutor() => _returnExecutor.Execute();
+        private void RestartDeathScreenExecutor() => _restartDeathExecutor.Execute();
+        private void ExitDeathScreenExecutor() => _exitDeathExecutor.Execute();
+
     }
 }
