@@ -46,14 +46,12 @@ namespace CrystalOfTime.NPC.Enemeis.Spells
 
         private void MoveToTarget()
         {
-            //var direction = (_targetPosition - transform.position).normalized;
             transform.position += _direction * _speed * Time.deltaTime;
-            //Debug.Log(direction);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Player") && !_isHit)
+            if (!collision.CompareTag("Enemy") && !_isHit)
             {
                 _isHit = true;
                 _animatorController.ChangeHitTrigger();
@@ -61,12 +59,6 @@ namespace CrystalOfTime.NPC.Enemeis.Spells
                 if (collision.gameObject.TryGetComponent<PlayerColliding>(out PlayerColliding playerColliding))
                     playerColliding.PlayerTakeDamage(20);
 
-                Destroy(gameObject, 1);
-            }
-            else if (collision.CompareTag("Ground"))
-            {
-                _isHit = true;
-                _animatorController.ChangeHitTrigger();
                 Destroy(gameObject, 1);
             }
         }
