@@ -46,6 +46,8 @@ namespace CrystalOfTime.Systems.Managers
                     ManagePortal(portalController, (int)CrystalCount.FirstLevel, crystal);
                 if (currentScene == 1)
                     ManagePortal(portalController, (int)CrystalCount.SecondLevel, crystal);
+                if (currentScene == 2)
+                    ManagePortal(portalController, (int)CrystalCount.ThirthLevel, crystal);
             }
         }
 
@@ -83,7 +85,8 @@ namespace CrystalOfTime.Systems.Managers
         public enum CrystalCount
         {
             FirstLevel = 3,
-            SecondLevel = 5
+            SecondLevel = 5,
+            ThirthLevel = 7
         }
     }
 }
