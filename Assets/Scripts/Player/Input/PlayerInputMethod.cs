@@ -26,6 +26,7 @@ namespace CrystalOfTime.Systems.InputSystem
         private PlayerController _playerController;
 
         private bool _isDead = false;
+        private bool _deadtrigger = false;
 
         public bool IsCasting { get; private set; }
         public Vector2 MoveInput { get; private set; }
@@ -101,10 +102,9 @@ namespace CrystalOfTime.Systems.InputSystem
                 Vector3 movement = new Vector3(MoveInput.x, 0, 0);
                 transform.position += movement * _moveSpeed * Time.deltaTime;
             }
-            else if (_isDead)
+            else if (_isDead && !_deadtrigger)
             {
-                Debug.Log("PLAYER IS DEAD GAME OVER");
-
+                _deadtrigger = true;
                 _playerController.Movement.Move.performed -= PlayerMove;
                 _playerController.Movement.Move.canceled -= PlayerStopMove;
                 _playerController.Movement.Jump.performed -= Jump;
@@ -130,6 +130,27 @@ namespace CrystalOfTime.Systems.InputSystem
         {
             yield return new WaitForSeconds(0.7f);
             IsCasting = false;
+        }
+
+        public float ChangeMovingSpeed(float changeRate)
+        {
+            float oldMoveSpeed = _moveSpeed;
+            Debug.Log($"Current speed: {_moveSpeed}");
+            _moveSpeed *= changeRate;
+            Debug.Log($"New speed: {_moveSpeed}");
+            return oldMoveSpeed;
+        }
+
+        public void ReturnMoveSpeed(float speed)
+        {
+            Debug.Log(speed);
+            StartCoroutine(ReturnSpeedWithDelay(speed));
+        }
+
+        IEnumerator ReturnSpeedWithDelay(float speed)
+        {
+            yield return new WaitForSeconds(1);
+            _moveSpeed = speed;
         }
     }
 }

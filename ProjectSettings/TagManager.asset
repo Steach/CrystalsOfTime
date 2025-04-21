@@ -12,6 +12,7 @@ TagManager:
   - Spell
   - Portal
   - EnemySpell
+  - SpearsHiddingTrap
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Bourder
   - Player
   - EnemySpell
-  - 
+  - Trap
   - 
   - 
   - 
