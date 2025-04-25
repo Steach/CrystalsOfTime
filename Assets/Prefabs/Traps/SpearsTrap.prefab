@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 1507438002435459616}
   - component: {fileID: 3366785878136386391}
   - component: {fileID: 4777633567248471049}
+  - component: {fileID: 1887007623835656247}
+  - component: {fileID: 4483890014524900951}
+  - component: {fileID: 4763912623974444326}
   m_Layer: 10
   m_Name: SpearsTrap
   m_TagString: Untagged
@@ -92,7 +95,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad599ae9fbc8c3e4cac18f1a3245e017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _trapCollider: {fileID: 3366785878136386391}
+  _executor: {fileID: 1887007623835656247}
+--- !u!114 &1887007623835656247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979655062619769632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d88b585c0b899f4d8063aee6268d087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actions:
+  - {fileID: 4483890014524900951}
+  _condition: {fileID: 4763912623974444326}
+  _checkByTag: 1
+--- !u!114 &4483890014524900951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979655062619769632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c36687ac4f1db345a96d1af8fd3b856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 100
+  _destroyAfterCollide: 0
+--- !u!114 &4763912623974444326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979655062619769632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28236c3d06bf4c044baed632f232d84a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tagForCheck: Player
 --- !u!1001 &1610265619859951005
 PrefabInstance:
   m_ObjectHideFlags: 0

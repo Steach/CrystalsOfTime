@@ -178,6 +178,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7743563363953253727}
   - component: {fileID: 71275930343684445}
+  - component: {fileID: 8234876828573615920}
+  - component: {fileID: 4892900286257487637}
+  - component: {fileID: 5257150318454732853}
+  - component: {fileID: 1537987105304953558}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
@@ -230,7 +234,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.1778178, y: -0.00054985285}
@@ -246,6 +250,63 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.10639766, y: 0.096271396}
   m_EdgeRadius: 0
+--- !u!114 &8234876828573615920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3562525480583303981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0a06dda52160b4ca50106a4e602a49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _executor: {fileID: 4892900286257487637}
+  _moveSpeed: 0.3
+--- !u!114 &4892900286257487637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3562525480583303981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d88b585c0b899f4d8063aee6268d087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actions:
+  - {fileID: 5257150318454732853}
+  _condition: {fileID: 1537987105304953558}
+  _checkByTag: 1
+--- !u!114 &5257150318454732853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3562525480583303981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c36687ac4f1db345a96d1af8fd3b856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 15
+  _destroyAfterCollide: 1
+--- !u!114 &1537987105304953558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3562525480583303981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28236c3d06bf4c044baed632f232d84a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tagForCheck: Player
 --- !u!1 &7155638559699260680
 GameObject:
   m_ObjectHideFlags: 0
